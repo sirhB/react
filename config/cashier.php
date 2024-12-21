@@ -124,4 +124,6 @@ return [
 
     'logger' => env('CASHIER_LOGGER'),
 
+    'billing_enabled' => (bool) (env('STRIPE_KEY', false) && env('STRIPE_SECRET', false)),
+
 ];

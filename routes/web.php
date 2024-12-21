@@ -8,6 +8,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\User\OauthController;
 use App\Http\Controllers\SubscriptionController;
+use Illuminate\Support\Facades\Config;
 
 Route::get('/', [WelcomeController::class, 'home'])->name('home');
 
@@ -22,5 +23,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
 
-    Route::resource('/subscriptions', SubscriptionController::class)->names('subscriptions')->only(['index', 'create', 'store', 'show']);
+    if (Config::get('cashier.billing_enabled')) {
+        Route::resource('/subscriptions', SubscriptionController::class)
+            ->names('subscriptions')
+            ->only(['index', 'create', 'store', 'show']);
+    }
 });
