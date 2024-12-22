@@ -8,11 +8,11 @@ use App\Models\Team;
 use App\Models\User;
 use Stripe\Customer;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Jetstream;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
@@ -61,13 +61,15 @@ final class CreateNewUser implements CreatesNewUsers
      */
     private function createCustomer(User $user): void
     {
-        if (Config::get('cashier.billing_enabled')) {
-            /** @var Customer $stripeCustomer */
-            $stripeCustomer = $user->createOrGetStripeCustomer();
-
-            $user->update([
-                'stripe_id' => $stripeCustomer?->id,
-            ]);
+        if (! Config::get('cashier.billing_enabled')) {
+            return;
         }
+
+        /** @var Customer $stripeCustomer */
+        $stripeCustomer = $user->createOrGetStripeCustomer();
+
+        $user->update([
+            'stripe_id' => $stripeCustomer->id,
+        ]);
     }
 }

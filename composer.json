@@ -82,6 +82,7 @@
     ],
     "setup": [
       "@php artisan key:generate",
+      "touch database/database.sqlite",
       "php artisan migrate:fresh --seed --force --ansi",
       "bun install",
       "bun run build",

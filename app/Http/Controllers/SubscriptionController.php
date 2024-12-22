@@ -22,16 +22,24 @@ final class SubscriptionController extends Controller
     /**
      * Redirect authenticated user to Stripe billing portal.
      */
-    public function index(Request $request): RedirectResponse
+    public function index(): RedirectResponse
     {
+        if (Config::get('cashier.billing_enabled')) {
+            return redirect()->route('dashboard');
+        }
+
         return type(Auth::user())->as(User::class)->redirectToBillingPortal(route('subscriptions.create'));
     }
 
     /**
      * Display subscription management page with active subscriptions and available plans.
      */
-    public function create(Request $request): Response
+    public function create(Request $request): Response|RedirectResponse
     {
+        if (! Config::get('cashier.billing_enabled')) {
+            return redirect()->route('dashboard');
+        }
+
         /** @var User $user */
         $user = $request->user();
 
@@ -50,8 +58,12 @@ final class SubscriptionController extends Controller
      *
      * @throws NotFoundHttpException If subscription plan not found
      */
-    public function show(string $subscription): Checkout
+    public function show(string $subscription): Checkout|RedirectResponse
     {
+        if (! Config::get('cashier.billing_enabled')) {
+            return redirect()->route('dashboard');
+        }
+
         /** @var array<int, array<string, mixed>> $subscriptionConfig */
         $subscriptionConfig = Config::array('subscriptions.subscriptions');
         $subscriptions = collect($subscriptionConfig);
