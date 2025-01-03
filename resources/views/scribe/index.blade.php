@@ -30,9 +30,9 @@
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
-    <script src="{{ asset("/vendor/scribe/js/tryitout-4.38.0.js") }}"></script>
+    <script src="{{ asset("/vendor/scribe/js/tryitout-4.39.0.js") }}"></script>
 
-    <script src="{{ asset("/vendor/scribe/js/theme-default-4.38.0.js") }}"></script>
+    <script src="{{ asset("/vendor/scribe/js/theme-default-4.39.0.js") }}"></script>
 
 </head>
 
@@ -98,7 +98,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: December 21, 2024</li>
+        <li>Last updated: January 3, 2025</li>
     </ul>
 </div>
 
@@ -163,7 +163,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-user">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (200):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -174,9 +174,7 @@ content-type: application/json
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Server Error&quot;
-}</code>
+<code class="language-json" style="max-height: 300px;">[]</code>
  </pre>
     </span>
 <span id="execution-results-GETapi-user" hidden>
@@ -435,11 +433,11 @@ access-control-allow-origin: *
     &quot;id&quot;: 1,
     &quot;name&quot;: &quot;Test User&quot;,
     &quot;email&quot;: &quot;test@example.com&quot;,
-    &quot;email_verified_at&quot;: &quot;2024-12-21T12:58:50.000000Z&quot;,
-    &quot;current_team_id&quot;: null,
+    &quot;email_verified_at&quot;: &quot;2025-01-03T06:12:40.000000Z&quot;,
+    &quot;current_team_id&quot;: 1,
     &quot;profile_photo_path&quot;: null,
-    &quot;created_at&quot;: &quot;2024-12-21T12:58:51.000000Z&quot;,
-    &quot;updated_at&quot;: &quot;2024-12-21T12:58:51.000000Z&quot;,
+    &quot;created_at&quot;: &quot;2025-01-03T06:12:40.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2025-01-03T06:12:51.000000Z&quot;,
     &quot;deleted_at&quot;: null,
     &quot;two_factor_confirmed_at&quot;: null
 }</code>
