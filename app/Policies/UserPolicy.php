@@ -13,8 +13,7 @@ final class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasTeamPermission($user->currentTeam, 'read')
-            && $user->tokenCan('read');
+        return true;
     }
 
     /**
