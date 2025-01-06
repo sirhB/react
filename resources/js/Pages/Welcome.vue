@@ -295,7 +295,7 @@ const githubUrl = 'https://github.com/pushpak1300/larasonic'
               supersonic. 🚀
             </p>
             <div class="mt-8 flex justify-center gap-4">
-              <Button :as="Link" :href="githubUrl" target="_blank" rel="noopener noreferrer">
+              <Button as="a" :href="githubUrl" target="_blank" rel="noopener noreferrer">
                 View on GitHub
               </Button>
             </div>
