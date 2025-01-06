@@ -146,7 +146,7 @@ function toggleMenu() {
               rel="noopener noreferrer"
             >Pushpak.
             </a>
-            <span class="hidden sm:inline">
+            <span>
               Hosted On <a
                 class="underline" href="https://sevalla.com/?ref=larasonic" target="_blank"
                 rel="noopener noreferrer"

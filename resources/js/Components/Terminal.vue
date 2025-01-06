@@ -6,7 +6,7 @@ const terminalStep = ref(0)
 const copied = ref(false)
 const terminalSteps = [
   'git clone https://github.com/pushpak1300/larasonic',
-  'composer install',
+  'cd larasonic && composer install',
   '.vendor/bin/sail up',
   '.vendor/bin/sail composer setup',
 ]
@@ -23,7 +23,7 @@ onMounted(() => {
 })
 
 function copyToClipboard() {
-  navigator.clipboard.writeText(terminalSteps.join('\n'))
+  navigator.clipboard.writeText(terminalSteps.join(' && '))
   copied.value = true
   setTimeout(() => (copied.value = false), 2000)
 }
