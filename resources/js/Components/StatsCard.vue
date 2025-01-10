@@ -3,27 +3,26 @@ import Card from '@/Components/shadcn/ui/card/Card.vue'
 import CardContent from '@/Components/shadcn/ui/card/CardContent.vue'
 import CardHeader from '@/Components/shadcn/ui/card/CardHeader.vue'
 import CardTitle from '@/Components/shadcn/ui/card/CardTitle.vue'
-import { Icon } from '@iconify/vue';
+import { Icon } from '@iconify/vue'
 
 defineProps({
   value: {
     type: [String, Number],
-    required: true
+    required: true,
   },
   description: {
     type: String,
-    default: ''
+    default: '',
   },
   link: {
     type: String,
-    default: ''
+    default: '',
   },
   icon: {
     type: String,
-    default: 'info'
-  }
+    default: 'info',
+  },
 })
-
 </script>
 
 <template>

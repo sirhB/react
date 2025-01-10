@@ -7,25 +7,25 @@ const stats = [
     value: 'Larasonic Documentation',
     description: 'Check out our comprehensive documentation',
     link: 'https://docs.larasonic.com/introduction',
-    icon: 'lucide:book-open'
+    icon: 'lucide:book-open',
   },
   {
     value: 'GitHub Repository',
     description: 'Star us on GitHub',
     link: 'https://github.com/pushpak1300/Larasonic',
-    icon: 'lucide:github'
+    icon: 'lucide:github',
   },
   {
     value: 'Roadmap',
     description: 'See what\'s coming next',
     link: 'https://github.com/pushpak1300/Larasonic/discussions/categories/roadmap',
-    icon: 'lucide:map'
+    icon: 'lucide:map',
   },
   {
     value: 'Join Us',
     description: 'Be part of our growing community',
     link: 'https://github.com/pushpak1300/Larasonic/discussions',
-    icon: 'lucide:users'
+    icon: 'lucide:users',
   },
 ]
 </script>

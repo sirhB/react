@@ -285,7 +285,7 @@ const githubUrl = 'https://github.com/pushpak1300/larasonic'
     <!-- CTA Section -->
     <section class="border-t">
       <div class="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
-    <div class="rounded-2xl px-6 py-12 sm:p-16">
+        <div class="rounded-2xl px-6 py-12 sm:p-16">
           <div class="mx-auto max-w-2xl text-center">
             <h2 class="text-3xl font-bold tracking-tight sm:text-6xl">
               Ready to ship faster?
