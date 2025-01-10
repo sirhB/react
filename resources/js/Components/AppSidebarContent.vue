@@ -84,7 +84,7 @@ function renderLink(item) {
           :class="{ 'font-semibold text-primary bg-secondary rounded': !item.external && route().current(item.route) }"
         >
           <SidebarMenuButton as-child>
-            <component v-bind="renderLink(item)" :is="item.external ? 'a' : Link">
+            <component v-bind="renderLink(item)" :is="item.external ? 'a' : Link" prefetch="mount">
               <Icon :icon="item.icon" />
               {{ item.name }}
             </component>

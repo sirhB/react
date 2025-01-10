@@ -48,7 +48,7 @@ function toggleMenu() {
           <a class="flex items-center space-x-2" href="/" :aria-label="$page.props.name">
             <Icon icon="lucide:rocket" class="h-6 w-6" aria-hidden="true" />
             <span class="hidden font-bold sm:inline-block">
-                {{ $page.props.name }}
+              {{ $page.props.name }}
             </span>
           </a>
           <nav class="hidden md:flex items-center space-x-6 text-sm font-medium sm:ml-4">
@@ -66,14 +66,14 @@ function toggleMenu() {
         <div class="flex items-center space-x-4">
           <div class="hidden sm:flex space-x-2">
             <template v-if="!$page.props.auth.user">
-              <Button variant="outline" :as="Link" href="/login">
+              <Button variant="outline" :as="Link" href="/login" prefetch="mount">
                 Login
               </Button>
-              <Button variant="outline" :as="Link" href="/register">
+              <Button variant="outline" :as="Link" href="/register" prefetch="mount">
                 Register
               </Button>
             </template>
-            <Button v-else variant="outline" :as="Link" href="/dashboard">
+            <Button v-else variant="outline" :as="Link" href="/dashboard" prefetch="mount">
               Dashboard
             </Button>
           </div>
@@ -109,16 +109,22 @@ function toggleMenu() {
             {{ link.label }}
           </a>
           <template v-if="!$page.props.auth.user">
-            <Button variant="outline" :as="Link" href="/login" class="w-full" @click="toggleMenu">
+            <Button
+              variant="outline" :as="Link" href="/login" class="w-full" prefetch="mount"
+              @click="toggleMenu"
+            >
               Login
             </Button>
-            <Button variant="outline" :as="Link" href="/register" class="w-full" @click="toggleMenu">
+            <Button
+              variant="outline" :as="Link" href="/register" class="w-full" prefetch="mount"
+              @click="toggleMenu"
+            >
               Register
             </Button>
           </template>
           <Button
             v-else variant="outline" :as="Link" href="/dashboard" class="w-full"
-            @click="toggleMobileMenu"
+            prefetch="mount" @click="toggleMobileMenu"
           >
             Dashboard
           </Button>

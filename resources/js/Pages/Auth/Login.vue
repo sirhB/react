@@ -72,7 +72,7 @@ onMounted(() => {
             <div class="grid gap-2">
               <Label for="email">Email</Label>
               <Input
-                id="email" v-model="form.email" type="email" placeholder="m@example.com" required
+                id="email" v-model="form.email" type="email" placeholder="test@example.com" required
                 autofocus autocomplete="username"
               />
               <InputError :message="form.errors.email" />
