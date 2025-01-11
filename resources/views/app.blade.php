@@ -59,7 +59,7 @@
     <meta name="twitter:title" content="Larasonic - Your Laravel VILT Boilerplate" />
     <meta name="twitter:description" content="A modern Laravel boilerplate that boosts your developer experience with built-in tools and integrations. Clone and start building!" />
     <meta name="twitter:image" content="https://larasonic.com/images/og.webp" />
-    <meta name="twitter:site" content="@YourTwitterHandle" />
+    <meta name="twitter:site" content="@pushpak1300" />
 
     <!-- Scripts -->
     @routes
