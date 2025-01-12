@@ -20,7 +20,7 @@ const props = defineProps({
 })
 
 useSeoMetaTags({
-    title: props.title,
+  title: props.title,
 })
 </script>
 

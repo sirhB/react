@@ -17,7 +17,7 @@ final class WelcomeController extends Controller
             'canRegister' => Route::has('register'),
             'seo' => [
                 'title' => 'Home',
-            ]
+            ],
         ]);
     }
 }
