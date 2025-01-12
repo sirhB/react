@@ -5,12 +5,17 @@ import Button from '@/Components/shadcn/ui/button/Button.vue'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/shadcn/ui/card'
 import Input from '@/Components/shadcn/ui/input/Input.vue'
 import Label from '@/Components/shadcn/ui/label/Label.vue'
-import { Head, useForm } from '@inertiajs/vue3'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags.js'
+import { useForm } from '@inertiajs/vue3'
 import { inject, ref } from 'vue'
 
 const route = inject('route')
 const form = useForm({
   password: '',
+})
+
+useSeoMetaTags({
+  title: 'Confirm Password',
 })
 
 const passwordInput = ref(null)
@@ -26,8 +31,6 @@ function submit() {
 </script>
 
 <template>
-  <Head title="Secure Area" />
-
   <div class="flex min-h-screen flex-col items-center justify-center">
     <Card class="mx-auto max-w-lg">
       <CardHeader>

@@ -13,16 +13,19 @@ import SidebarMenuItem from '@/Components/shadcn/ui/sidebar/SidebarMenuItem.vue'
 import SidebarProvider from '@/Components/shadcn/ui/sidebar/SidebarProvider.vue'
 import SidebarTrigger from '@/Components/shadcn/ui/sidebar/SidebarTrigger.vue'
 import Sonner from '@/Components/shadcn/ui/sonner/Sonner.vue'
-import { Head } from '@inertiajs/vue3'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags.js'
 
-defineProps({
+const props = defineProps({
   title: String,
+})
+
+useSeoMetaTags({
+    title: props.title,
 })
 </script>
 
 <template>
   <div>
-    <Head :title="title" />
     <Sonner position="top-center" />
     <SidebarProvider>
       <Sidebar collapsible="icon">

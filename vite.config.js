@@ -1,3 +1,4 @@
+import UnheadVite from '@unhead/addons/vite'
 import vue from '@vitejs/plugin-vue'
 import laravel from 'laravel-vite-plugin'
 import { defineConfig } from 'vite'
@@ -17,6 +18,7 @@ export default defineConfig({
         },
       },
     }),
+    UnheadVite(), // @see {@link https://unhead.unjs.io/setup/unhead/introduction}
   ],
   server: {
     hmr: {

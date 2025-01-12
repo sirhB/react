@@ -5,9 +5,14 @@ import Button from '@/Components/shadcn/ui/button/Button.vue'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/shadcn/ui/card'
 import Input from '@/Components/shadcn/ui/input/Input.vue'
 import Label from '@/Components/shadcn/ui/label/Label.vue'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags.js'
 
-import { Head, useForm } from '@inertiajs/vue3'
+import { useForm } from '@inertiajs/vue3'
 import { inject, nextTick, ref } from 'vue'
+
+useSeoMetaTags({
+  title: 'Two-factor Confirmation',
+})
 
 const route = inject('route')
 const recovery = ref(false)
@@ -41,8 +46,6 @@ function submit() {
 </script>
 
 <template>
-  <Head title="Two-factor Confirmation" />
-
   <div class="flex min-h-screen flex-col items-center justify-center">
     <Card class="mx-auto max-w-lg">
       <CardHeader>

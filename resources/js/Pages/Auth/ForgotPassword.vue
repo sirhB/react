@@ -4,14 +4,19 @@ import AuthenticationCardLogo from '@/Components/LogoRedirect.vue'
 import Button from '@/Components/shadcn/ui/button/Button.vue'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/shadcn/ui/card'
 import Input from '@/Components/shadcn/ui/input/Input.vue'
-
 import Label from '@/Components/shadcn/ui/label/Label.vue'
-import { Head, useForm } from '@inertiajs/vue3'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags.js'
+import { useForm } from '@inertiajs/vue3'
 import { inject } from 'vue'
 
 defineProps({
   status: String,
 })
+
+useSeoMetaTags({
+  title: 'Forgot Password',
+})
+
 const route = inject('route')
 const form = useForm({
   email: '',
@@ -23,8 +28,6 @@ function submit() {
 </script>
 
 <template>
-  <Head title="Forgot Password" />
-
   <div class="flex min-h-screen flex-col items-center justify-center">
     <Card class="mx-auto max-w-lg">
       <CardHeader>

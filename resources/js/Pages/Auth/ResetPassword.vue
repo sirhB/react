@@ -8,14 +8,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Com
 import Input from '@/Components/shadcn/ui/input/Input.vue'
 
 import Label from '@/Components/shadcn/ui/label/Label.vue'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags.js'
 import { cn } from '@/lib/utils'
-import { Head, useForm } from '@inertiajs/vue3'
+import { useForm } from '@inertiajs/vue3'
 import { inject } from 'vue'
 
 const props = defineProps({
   email: String,
   token: String,
 })
+
+useSeoMetaTags({
+  title: 'Register',
+})
+
 const route = inject('route')
 const form = useForm({
   token: props.token,
@@ -32,8 +38,6 @@ function submit() {
 </script>
 
 <template>
-  <Head title="Reset Password" />
-
   <div class="flex min-h-screen flex-col items-center justify-center">
     <Card class="mx-auto max-w-lg" :class="cn('w-[380px]')">
       <CardHeader>

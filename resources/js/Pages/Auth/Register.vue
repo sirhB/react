@@ -7,8 +7,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Com
 import Checkbox from '@/Components/shadcn/ui/checkbox/Checkbox.vue'
 import Input from '@/Components/shadcn/ui/input/Input.vue'
 import Label from '@/Components/shadcn/ui/label/Label.vue'
-import { Head, Link, useForm } from '@inertiajs/vue3'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags.js'
+import { Link, useForm } from '@inertiajs/vue3'
 import { inject } from 'vue'
+
+useSeoMetaTags({
+  title: 'Register',
+})
 
 const route = inject('route')
 const form = useForm({
@@ -27,8 +32,6 @@ function submit() {
 </script>
 
 <template>
-  <Head title="Register" />
-
   <div class="flex min-h-screen flex-col items-center justify-center">
     <Card class="mx-auto max-w-lg">
       <CardHeader>

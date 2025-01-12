@@ -1,15 +1,17 @@
 <script setup>
 import AuthenticationCardLogo from '@/Components/LogoRedirect.vue'
-import { Head } from '@inertiajs/vue3'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
 
 defineProps({
   policy: String,
 })
+
+useSeoMetaTags({
+  title: 'Privacy Policy',
+})
 </script>
 
 <template>
-  <Head title="Privacy Policy" />
-
   <div class="font-sans antialiased">
     <div class="pt-4">
       <div class="flex min-h-screen flex-col items-center pt-6 sm:pt-0">

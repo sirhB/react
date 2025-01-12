@@ -8,8 +8,9 @@ import Input from '@/Components/shadcn/ui/input/Input.vue'
 import Label from '@/Components/shadcn/ui/label/Label.vue'
 import Sonner from '@/Components/shadcn/ui/sonner/Sonner.vue'
 import SocialLoginButton from '@/Components/SocialLoginButton.vue'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags.js'
 import { cn } from '@/lib/utils'
-import { Head, Link, useForm, usePage } from '@inertiajs/vue3'
+import { Link, useForm, usePage } from '@inertiajs/vue3'
 import { inject, onMounted } from 'vue'
 import { toast } from 'vue-sonner'
 
@@ -21,6 +22,10 @@ defineProps({
 
 const page = usePage()
 const route = inject('route')
+
+useSeoMetaTags({
+  title: 'Log in',
+})
 
 const form = useForm({
   email: 'test@example.com',
@@ -44,7 +49,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <Head title="Log in" />
   <Sonner position="top-center" />
   <div class="flex min-h-screen flex-col items-center justify-center">
     <Card class="mx-auto max-w-lg" :class="cn('w-[380px]')">

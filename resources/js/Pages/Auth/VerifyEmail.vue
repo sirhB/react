@@ -2,11 +2,16 @@
 import AuthenticationCardLogo from '@/Components/LogoRedirect.vue'
 import Button from '@/Components/shadcn/ui/button/Button.vue'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/shadcn/ui/card'
-import { Head, Link, useForm } from '@inertiajs/vue3'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags.js'
+import { Link, useForm } from '@inertiajs/vue3'
 import { computed, inject } from 'vue'
 
 const props = defineProps({
   status: String,
+})
+
+useSeoMetaTags({
+  title: 'Email Verification',
 })
 
 const route = inject('route')
@@ -21,8 +26,6 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
 </script>
 
 <template>
-  <Head title="Email Verification" />
-
   <div class="flex min-h-screen flex-col items-center justify-center">
     <Card class="mx-auto max-w-lg">
       <CardHeader>

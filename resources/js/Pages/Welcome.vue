@@ -8,18 +8,25 @@ import AccordionTrigger from '@/Components/shadcn/ui/accordion/AccordionTrigger.
 import Badge from '@/Components/shadcn/ui/badge/Badge.vue'
 import Button from '@/Components/shadcn/ui/button/Button.vue'
 import Terminal from '@/Components/Terminal.vue'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags.js'
 import WebLayout from '@/Layouts/WebLayout.vue'
 import { Icon } from '@iconify/vue'
-import { Head, Link } from '@inertiajs/vue3'
+import { Link } from '@inertiajs/vue3'
 
-defineProps({
+const props = defineProps({
   canLogin: {
     type: Boolean,
   },
   canRegister: {
     type: Boolean,
   },
+  seo: {
+    type: Object,
+    default: () => null,
+  },
 })
+
+useSeoMetaTags(props.seo)
 
 const features = [
   {
@@ -105,8 +112,6 @@ const githubUrl = 'https://github.com/pushpak1300/larasonic'
 
 <template>
   <WebLayout :can-login="canLogin" :can-register="canRegister">
-    <Head title="Build Faster with Larasonic" />
-
     <!-- Hero Section -->
     <section class="relative overflow-hidden border-b bg-background py-20 sm:py-32">
       <div class="container mx-auto px-4 text-center">

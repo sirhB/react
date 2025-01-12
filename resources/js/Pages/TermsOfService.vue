@@ -1,15 +1,17 @@
 <script setup>
 import AuthenticationCardLogo from '@/Components/LogoRedirect.vue'
-import { Head } from '@inertiajs/vue3'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
 
 defineProps({
   terms: String,
 })
+
+useSeoMetaTags({
+  title: 'Terms of Service',
+})
 </script>
 
 <template>
-  <Head title="Terms of Service" />
-
   <div class="font-sans antialiased">
     <div class="pt-4">
       <div class="flex min-h-screen flex-col items-center pt-6 sm:pt-0">
