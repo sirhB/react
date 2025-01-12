@@ -67,7 +67,7 @@ jobs:
       - name: Get Bun cache directory
         id: bun-cache-dir
         shell: bash
-        run: echo "dir=$(bun config get cache)" >> ${GITHUB_OUTPUT}
+        run: echo "dir=$(bun pm cache dir)" >> $GITHUB_OUTPUT
 
       - name: Cache Bun dependencies
         id: bun-cache
@@ -76,7 +76,7 @@ jobs:
           path: |
             **/node_modules
             ${{ steps.bun-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
           restore-keys: |
             ${{ runner.os }}-bun-
 

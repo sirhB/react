@@ -23,8 +23,8 @@ const page = usePage()
 const route = inject('route')
 
 const form = useForm({
-  email: '',
-  password: '',
+  email: 'test@example.com',
+  password: 'password',
   remember: false,
 })
 function handleSubmit() {
@@ -32,7 +32,6 @@ function handleSubmit() {
     ...data,
     remember: form.remember ? 'on' : '',
   })).post(route('login'), {
-    onSuccess: () => toast.success(page.props.flash.success),
     onFinish: () => form.reset('password'),
   })
 }
