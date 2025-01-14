@@ -13,5 +13,4 @@ return [
     AdminPanelProvider::class,
     FortifyServiceProvider::class,
     JetstreamServiceProvider::class,
-    TelescopeServiceProvider::class,
 ];
