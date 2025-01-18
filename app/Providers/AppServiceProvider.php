@@ -6,14 +6,16 @@ namespace App\Providers;
 
 use App\Models\User;
 use EchoLabs\Prism\Prism;
+use Carbon\CarbonImmutable;
 use Knuckles\Scribe\Scribe;
 use Laravel\Sanctum\Sanctum;
-use EchoLabs\Prism\Text\Generator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Vite;
 use EchoLabs\Prism\Facades\PrismServer;
+use EchoLabs\Prism\Text\PendingRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use EchoLabs\Prism\Enums\Provider as PrismProvider;
@@ -47,6 +49,7 @@ final class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureCommands();
+        $this->configureDates();
         $this->configureModels();
         $this->configureUrl();
         $this->configureVite();
@@ -54,6 +57,21 @@ final class AppServiceProvider extends ServiceProvider
         $this->configureScribeDocumentation();
     }
 
+    /**
+     * It's recommended to use CarbonImmutable as it's immutable and thread-safe to avoid issues with mutability.
+     *
+     * @see https://dyrynda.com.au/blog/laravel-immutable-dates
+     */
+    private function configureDates(): void
+    {
+        Date::use(CarbonImmutable::class);
+    }
+
+    /**
+     * Configure the application's Scribe documentation.
+     *
+     * @see https://scribe.knuckles.wtf/laravel/
+     */
     private function configureScribeDocumentation(): void
     {
         if (class_exists(Scribe::class)) {
@@ -119,23 +137,23 @@ final class AppServiceProvider extends ServiceProvider
         // This is example of how to register a Prism.
         PrismServer::register(
             'Larasonic Small',
-            fn (): Generator => Prism::text()->using(PrismProvider::Groq, 'llama3-8b-8192')
+            fn (): PendingRequest => Prism::text()->using(PrismProvider::Gemini, 'llama3-8b-8192')
                 ->withSystemPrompt(view('prompts.system')->render())
-                ->withMaxTokens(50)
+                ->withMaxTokens(100)
         );
 
         PrismServer::register(
             'Larasonic Medium',
-            fn (): Generator => Prism::text()->using(PrismProvider::Groq, 'llama3-8b-8192')
+            fn (): PendingRequest => Prism::text()->using(PrismProvider::Gemini, 'llama3-8b-8192')
                 ->withSystemPrompt(view('prompts.system')->render())
-                ->withMaxTokens(70)
+                ->withMaxTokens(150)
         );
 
         PrismServer::register(
             'Larasonic Large',
-            fn (): Generator => Prism::text()->using(PrismProvider::Groq, 'llama3-8b-8192')
+            fn (): PendingRequest => Prism::text()->using(PrismProvider::Gemini, 'llama3-8b-8192')
                 ->withSystemPrompt(view('prompts.system')->render())
-                ->withMaxTokens(90)
+                ->withMaxTokens(250)
         );
     }
 }
