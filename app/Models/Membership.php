@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Support\Carbon;
+use Carbon\CarbonImmutable;
 use Laravel\Jetstream\Membership as JetstreamMembership;
 
 /**
@@ -12,8 +12,8 @@ use Laravel\Jetstream\Membership as JetstreamMembership;
  * @property int $team_id
  * @property int $user_id
  * @property string|null $role
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Membership newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Membership newQuery()
@@ -24,9 +24,6 @@ use Laravel\Jetstream\Membership as JetstreamMembership;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Membership whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Membership whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Membership whereUserId($value)
- *
- * @noinspection PhpFullyQualifiedNameUsageInspection
- * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
  *
  * @mixin \Eloquent
  */

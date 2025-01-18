@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Support\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Database\Factories\OauthConnectionFactory;
@@ -21,8 +21,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null $token
  * @property string|null $refresh_token
  * @property string|null $expires_at
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
  * @property-read User $user
  *
  * @method static \Database\Factories\OauthConnectionFactory factory($count = null, $state = [])
@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OauthConnection query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OauthConnection whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OauthConnection whereData($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OauthConnection whereExpiresAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OauthConnection whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OauthConnection whereProvider($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OauthConnection whereProviderId($value)
@@ -38,7 +39,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OauthConnection whereToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OauthConnection whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OauthConnection whereUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|OauthConnection whereExpiresAt($value)
  *
  * @mixin \Eloquent
  */

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Support\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Jetstream\TeamInvitation as JetstreamTeamInvitation;
 
@@ -13,8 +13,8 @@ use Laravel\Jetstream\TeamInvitation as JetstreamTeamInvitation;
  * @property int $team_id
  * @property string $email
  * @property string|null $role
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
  * @property-read Team $team
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TeamInvitation newModelQuery()
@@ -26,9 +26,6 @@ use Laravel\Jetstream\TeamInvitation as JetstreamTeamInvitation;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TeamInvitation whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TeamInvitation whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TeamInvitation whereUpdatedAt($value)
- *
- * @noinspection PhpFullyQualifiedNameUsageInspection
- * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
  *
  * @mixin \Eloquent
  */
