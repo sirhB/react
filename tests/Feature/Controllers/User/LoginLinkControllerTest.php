@@ -5,20 +5,19 @@ declare(strict_types=1);
 use App\Models\User;
 use App\Models\LoginLink;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\URL;
 use App\Notifications\LoginLinkMail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Notification;
 use App\Http\Controllers\User\LoginLinkController;
 use Illuminate\Routing\Middleware\ThrottleRequests;
 
-use function Pest\Laravel\assertAuthenticatedAs;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
+use function Pest\Laravel\assertGuest;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\withoutMiddleware;
 use function Pest\Laravel\assertDatabaseCount;
-use function Pest\Laravel\assertGuest;
+use function Pest\Laravel\assertAuthenticatedAs;
 
 covers(LoginLinkController::class);
 
@@ -87,9 +86,7 @@ describe('can login with the link', function (): void {
     it('authenticates user with valid token', function (): void {
         $user = User::factory()->create();
 
-        Str::createRandomStringsUsing(function () {
-            return 'fake-random-string';
-        });
+        Str::createRandomStringsUsing(fn(): string => 'fake-random-string');
         post(route('login-link.store'), [
             'email' => $user->email,
         ]);

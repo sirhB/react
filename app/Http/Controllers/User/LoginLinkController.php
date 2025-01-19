@@ -6,7 +6,6 @@ namespace App\Http\Controllers\User;
 
 use App\Models\User;
 use App\Models\LoginLink;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,9 +18,11 @@ use function Illuminate\Support\defer;
 
 final class LoginLinkController extends Controller
 {
-    private const RATE_LIMIT_PREFIX = 'login-link:';
-    private const RATE_LIMIT_ATTEMPTS = 1;
-    private const EXPIRATION_TIME = 15;
+    private const string RATE_LIMIT_PREFIX = 'login-link:';
+
+    private const int RATE_LIMIT_ATTEMPTS = 1;
+
+    private const int EXPIRATION_TIME = 15;
 
     /**
      * Create a new magic link.

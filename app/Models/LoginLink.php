@@ -69,8 +69,6 @@ final class LoginLink extends Model
     /**
      * Get the prunable model query.
      * This will delete all magic links that were created more than a week ago.
-     *
-     * @return Builder
      */
     public function prunable(): Builder
     {
