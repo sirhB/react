@@ -8,6 +8,7 @@ use App\Models\User;
 use EchoLabs\Prism\Prism;
 use Carbon\CarbonImmutable;
 use Knuckles\Scribe\Scribe;
+use Illuminate\Http\Request;
 use Laravel\Sanctum\Sanctum;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
@@ -18,6 +19,8 @@ use EchoLabs\Prism\Facades\PrismServer;
 use EchoLabs\Prism\Text\PendingRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\RateLimiter;
 use EchoLabs\Prism\Enums\Provider as PrismProvider;
 use Knuckles\Camel\Extraction\ExtractedEndpointData;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
@@ -55,6 +58,7 @@ final class AppServiceProvider extends ServiceProvider
         $this->configureVite();
         $this->configurePrisms();
         $this->configureScribeDocumentation();
+        $this->configureRateLimiting();
     }
 
     /**
@@ -155,5 +159,15 @@ final class AppServiceProvider extends ServiceProvider
                 ->withSystemPrompt(view('prompts.system')->render())
                 ->withMaxTokens(250)
         );
+    }
+
+    /**
+     * Configure the application's rate limiting.
+     *
+     * @see https://laravel.com/docs/11.x/routing#rate-limiting
+     */
+    private function configureRateLimiting(): void
+    {
+        RateLimiter::for('login-link', fn (Request $request) => $request->email ? Limit::perHour(5)->by($request->email) : Limit::perHour(5)->by($request->ip()));
     }
 }
