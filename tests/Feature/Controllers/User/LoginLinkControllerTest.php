@@ -86,7 +86,7 @@ describe('can login with the link', function (): void {
     it('authenticates user with valid token', function (): void {
         $user = User::factory()->create();
 
-        Str::createRandomStringsUsing(fn(): string => 'fake-random-string');
+        Str::createRandomStringsUsing(fn (): string => 'fake-random-string');
         post(route('login-link.store'), [
             'email' => $user->email,
         ]);
