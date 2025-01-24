@@ -1,5 +1,5 @@
 import UnheadVite from '@unhead/addons/vite'
-import vue from '@vitejs/plugin-vue'
+import react from '@vitejs/plugin-react';
 import laravel from 'laravel-vite-plugin'
 import { defineConfig } from 'vite'
 
@@ -10,7 +10,7 @@ export default defineConfig({
       publicDirectory: 'public',
       refresh: true,
     }),
-    vue({
+    react({
       template: {
         transformAssetUrls: {
           base: null,
