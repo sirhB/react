@@ -6,7 +6,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [
     laravel({
-      input: 'resources/js/app.js',
+      input: ['resources/js/app.jsx'],
       publicDirectory: 'public',
       refresh: true,
     }),
@@ -18,7 +18,6 @@ export default defineConfig({
         },
       },
     }),
-    UnheadVite(), // @see {@link https://unhead.unjs.io/setup/unhead/introduction}
   ],
   server: {
     hmr: {

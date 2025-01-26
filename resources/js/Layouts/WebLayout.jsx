@@ -1,7 +1,7 @@
 import { Button } from '@/Components/shadcn/ui/button';
 import { Icon } from '@iconify/react';
 import { Link, usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const navLinks = [
   { label: 'Features', href: '/#features', external: false },
@@ -15,12 +15,23 @@ const twitterUrl = 'https://x.com/pushpak1300?ref=larasonic';
 export default function WebLayout({ children }) {
   const { props } = usePage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    }
+    return 'light';
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', mode === 'dark');
+  }, [mode]);
 
   const toggleMode = () => {
-    const newMode = mode === 'dark' ? 'light' : 'dark';
-    setMode(newMode);
-    document.documentElement.classList.toggle('dark');
+    setMode(mode === 'dark' ? 'light' : 'dark');
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
@@ -37,11 +48,11 @@ export default function WebLayout({ children }) {
                 <a
                   key={link.href}
                   href={link.href}
-                  className={\`transition-colors hover:text-foreground/80 \${
-                    !link.href.startsWith('http') ? 'text-foreground/60' : ''
-                  }\`}
-                  target={link.href.startsWith('http') ? '_blank' : undefined}
-                  rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+                  className={`transition-colors hover:text-foreground/80 ${
+                    !link.external ? 'text-foreground/60' : ''
+                  }`}
+                  target={link.external ? '_blank' : undefined}
+                  rel={link.external ? 'noreferrer' : undefined}
                 >
                   {link.label}
                 </a>
@@ -53,15 +64,15 @@ export default function WebLayout({ children }) {
               {!props.auth.user ? (
                 <>
                   <Button variant="outline" asChild>
-                    <Link href="/login">Login</Link>
+                    <Link href="/login" prefetch="mount">Login</Link>
                   </Button>
                   <Button variant="outline" asChild>
-                    <Link href="/register">Register</Link>
+                    <Link href="/register" prefetch="mount">Register</Link>
                   </Button>
                 </>
               ) : (
                 <Button variant="outline" asChild>
-                  <Link href="/dashboard">Dashboard</Link>
+                  <Link href="/dashboard" prefetch="mount">Dashboard</Link>
                 </Button>
               )}
             </div>
@@ -85,7 +96,7 @@ export default function WebLayout({ children }) {
               variant="ghost"
               size="icon"
               aria-label="Toggle menu"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={toggleMenu}
             >
               <Icon icon={isMenuOpen ? 'lucide:x' : 'lucide:menu'} className="h-6 w-6" aria-hidden="true" />
             </Button>
@@ -100,25 +111,25 @@ export default function WebLayout({ children }) {
                   key={link.href}
                   href={link.href}
                   className="text-sm font-medium transition-colors hover:text-foreground/80"
-                  target={link.href.startsWith('http') ? '_blank' : undefined}
-                  rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
-                  onClick={() => setIsMenuOpen(false)}
+                  target={link.external ? '_blank' : undefined}
+                  rel={link.external ? 'noreferrer' : undefined}
+                  onClick={toggleMenu}
                 >
                   {link.label}
                 </a>
               ))}
               {!props.auth.user ? (
                 <>
-                  <Button variant="outline" asChild className="w-full">
-                    <Link href="/login">Login</Link>
+                  <Button variant="outline" asChild className="w-full" onClick={toggleMenu}>
+                    <Link href="/login" prefetch="mount">Login</Link>
                   </Button>
-                  <Button variant="outline" asChild className="w-full">
-                    <Link href="/register">Register</Link>
+                  <Button variant="outline" asChild className="w-full" onClick={toggleMenu}>
+                    <Link href="/register" prefetch="mount">Register</Link>
                   </Button>
                 </>
               ) : (
-                <Button variant="outline" asChild className="w-full">
-                  <Link href="/dashboard">Dashboard</Link>
+                <Button variant="outline" asChild className="w-full" onClick={toggleMenu}>
+                  <Link href="/dashboard" prefetch="mount">Dashboard</Link>
                 </Button>
               )}
               <a
@@ -126,7 +137,7 @@ export default function WebLayout({ children }) {
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center space-x-2 text-sm font-medium"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={toggleMenu}
               >
                 <Icon icon="mdi:github" className="h-5 w-5" />
                 <span>GitHub</span>

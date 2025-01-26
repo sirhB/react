@@ -1,5 +1,7 @@
 import axios from 'axios'
 
-window.axios = axios
+// Configure axios defaults
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+// Export configured axios instance
+export default axios

@@ -2,7 +2,7 @@ import antfu from '@antfu/eslint-config'
 import eslintPluginTailwindCSS from 'eslint-plugin-tailwindcss'
 
 export default antfu({
-  vue: true,
+  react: true,
   typescript: false,
   formatters: {
     css: true,
@@ -11,7 +11,7 @@ export default antfu({
   },
   ignores: ['storage/**/*', '**/*.{yaml,yml,php}', 'resources/js/Components/shadcn/**/*', 'public/**/*'],
 }, {
-  files: ['**/*.{js,vue,json,ts,tsx,md,html,blade}'],
+  files: ['**/*.{js,jsx,json,ts,tsx,md,html,blade}'],
   ...eslintPluginTailwindCSS.configs['flat/recommended'].rules,
   rules: {
     'tailwindcss/no-custom-classname': 'off',
