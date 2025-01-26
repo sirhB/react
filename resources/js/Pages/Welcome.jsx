@@ -8,10 +8,8 @@ import {
 } from '@/Components/shadcn/ui/accordion';
 import { Badge } from '@/Components/shadcn/ui/badge';
 import { Button } from '@/Components/shadcn/ui/button';
-import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
 import WebLayout from '@/Layouts/WebLayout';
 import { Icon } from '@iconify/react';
-import { Link } from '@inertiajs/react';
 
 const features = [
   {
@@ -95,9 +93,7 @@ const faqItems = [
 
 const githubUrl = 'https://github.com/pushpak1300/larasonic';
 
-export default function Welcome({ canLogin, canRegister, seo }) {
-  useSeoMetaTags(seo);
-
+export default function Welcome({ canLogin, canRegister }) {
   return (
     <WebLayout canLogin={canLogin} canRegister={canRegister}>
       <main>
@@ -153,7 +149,7 @@ export default function Welcome({ canLogin, canRegister, seo }) {
                   className="size-8 opacity-75 grayscale transition-all hover:opacity-100 hover:grayscale-0"
                 />
                 <Icon
-                  icon="logos:vue"
+                  icon="logos:react"
                   className="size-8 opacity-75 grayscale transition-all hover:opacity-100 hover:grayscale-0"
                 />
                 <Icon
@@ -172,84 +168,7 @@ export default function Welcome({ canLogin, canRegister, seo }) {
           <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/20 opacity-20 blur-[100px]" />
         </section>
 
-        {/* Features Grid */}
-        <section id="features" className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
-          <h2 className="text-center text-2xl font-bold tracking-tight sm:text-4xl">Features ✨</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-center text-muted-foreground">
-            Everything you need to ship faster to production without any hassle.
-          </p>
 
-          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature) => (
-              <FeaturesCard
-                key={feature.title}
-                icon={feature.icon}
-                title={feature.title}
-                description={feature.description}
-              />
-            ))}
-          </div>
-          <div className="mt-6 flex justify-center gap-2">
-            <Button asChild>
-              <a href="https://docs.larasonic.com" target="_blank" rel="noopener noreferrer">
-                <Icon icon="lucide:book-open" className="size-4" aria-hidden="true" />
-                Documentation
-              </a>
-            </Button>
-            <Button asChild variant="secondary">
-              <a href={`${githubUrl}/discussions/categories/roadmap`} target="_blank" rel="noopener noreferrer">
-                <Icon icon="lucide:construction" className="size-4" aria-hidden="true" />
-                Roadmap
-              </a>
-            </Button>
-          </div>
-        </section>
-
-        <section id="pricing" className="border-t">
-          <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl text-center">
-              <h2 className="text-center text-2xl font-bold tracking-tight sm:text-4xl">Proudly Open Source 🤑</h2>
-              <p className="mx-auto mt-4 max-w-2xl text-center text-muted-foreground">
-                Larasonic is and will always be open source. No hidden fees, no premium features.
-              </p>
-            </div>
-
-            <PricingCard
-              className="mx-auto mt-16"
-              features={pricingFeatures}
-              price={0}
-              plan="What's included ?"
-              billingPeriod="Free Forever"
-            >
-              <Button asChild>
-                <Link href={route('dashboard')}>Get Started</Link>
-              </Button>
-            </PricingCard>
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className="border-t">
-          <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl text-center">
-              <h2 className="text-center text-2xl font-bold tracking-tight sm:text-4xl">FAQ</h2>
-              <p className="mx-auto mt-4 max-w-2xl text-center text-muted-foreground">
-                Frequently asked questions about Larasonic.
-              </p>
-            </div>
-
-            <div className="mx-auto mt-16 max-w-3xl">
-              <Accordion type="single" collapsible className="w-full">
-                {faqItems.map((item) => (
-                  <AccordionItem key={item.value} value={item.value}>
-                    <AccordionTrigger className="text-left">{item.title}</AccordionTrigger>
-                    <AccordionContent>{item.content}</AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-          </div>
-        </section>
       </main>
     </WebLayout>
   );
