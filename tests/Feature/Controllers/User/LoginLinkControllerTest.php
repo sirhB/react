@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Models\User;
 use App\Models\LoginLink;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\URL;
 use App\Notifications\LoginLinkMail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Notification;
@@ -93,7 +94,9 @@ describe('can login with the link', function (): void {
 
         Str::createRandomStringsNormally();
 
-        $response = get(route('login-link.login', ['token' => 'fake-random-string']));
+        $url = URL::signedRoute('login-link.login', ['token' => 'fake-random-string']);
+
+        $response = get($url);
 
         $response->assertRedirect(route('dashboard'));
 
@@ -108,7 +111,7 @@ describe('can login with the link', function (): void {
 
         $response = get(route('login-link.login', ['token' => 'fake-random-string']));
 
-        $response->assertNotFound();
+        $response->assertForbidden();
 
         assertGuest();
     });
@@ -122,7 +125,7 @@ describe('can login with the link', function (): void {
 
         $response = get(route('login-link.login', ['token' => 'fake-random-string']));
 
-        $response->assertNotFound();
+        $response->assertForbidden();
 
         assertGuest();
     });
@@ -130,7 +133,7 @@ describe('can login with the link', function (): void {
     it('fails with invalid token', function (): void {
         $response = get(route('login-link.login', ['token' => 'invalid-token']));
 
-        $response->assertNotFound();
+        $response->assertForbidden();
 
         assertGuest();
     });

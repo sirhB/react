@@ -20,7 +20,9 @@ Route::prefix('auth')->group(
         // Magic Link
         Route::middleware('throttle:login-link')->group(function () {
             Route::post('/login-link', [LoginLinkController::class, 'store'])->name('login-link.store');
-            Route::get('/login-link/{token}', [LoginLinkController::class, 'login'])->name('login-link.login');
+            Route::get('/login-link/{token}', [LoginLinkController::class, 'login'])
+                ->name('login-link.login')
+                ->middleware('signed');
         });
     }
 );
