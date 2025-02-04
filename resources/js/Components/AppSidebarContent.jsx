@@ -8,14 +8,14 @@ import {
 } from '@/Components/shadcn/ui/sidebar';
 import { Icon } from '@iconify/react';
 import { Link } from '@inertiajs/react';
-import { memo, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 const navigationConfig = [
   {
     label: 'Platform',
     items: [
-      { name: 'Dashboard', icon: 'lucide:layout-dashboard', route: 'dashboard' },
+      { name: 'Dashboard', icon: 'lucide:layout-dashboard', route: 'dashboard', isActive: true },
       { name: 'Settings', icon: 'lucide:settings', route: 'profile.show' },
       { name: 'Chat', icon: 'lucide:message-circle', route: 'chat.index' },
     ],
@@ -47,17 +47,36 @@ const navigationConfig = [
   },
 ];
 
-export default memo(function AppSidebarContent() {
+export default function AppSidebarContent() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
+    // Initialize dark mode state from document class
     setIsDarkMode(document.documentElement.classList.contains('dark'));
+
+    // Set up a mutation observer to watch for class changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          setIsDarkMode(document.documentElement.classList.contains('dark'));
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const toggleDarkMode = () => {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
     document.documentElement.classList.toggle('dark', newMode);
+    // Set attribute for vueuse compatibility
+    document.documentElement.setAttribute('class', newMode ? 'dark' : '');
   };
 
   const renderLink = (item) => {
@@ -75,7 +94,6 @@ export default memo(function AppSidebarContent() {
       Component: Link,
       props: {
         href: route(item.route),
-        prefetch: true,
       },
     };
   };
@@ -84,24 +102,18 @@ export default memo(function AppSidebarContent() {
     <SidebarContent>
       {navigationConfig.map((group, index) => (
         <SidebarGroup key={index} className={group.class}>
-          {group.label && (
-            <SidebarGroupLabel>
-              {group.label}
-            </SidebarGroupLabel>
-          )}
+          {group.label && <SidebarGroupLabel>{group.label}</SidebarGroupLabel>}
           <SidebarMenu>
             {group.items.map((item) => {
               const { Component, props } = renderLink(item);
               return (
                 <SidebarMenuItem
                   key={item.name}
-                  className={cn({
-                    'font-semibold text-primary bg-secondary rounded': !item.external && route().current(item.route),
-                  })}
+                  active={!item.external && route().current(item.route)}
                 >
                   <SidebarMenuButton asChild>
                     <Component {...props}>
-                      <Icon icon={item.icon} />
+                      <Icon icon={item.icon} className="mr-2 h-4 w-4" />
                       {item.name}
                     </Component>
                   </SidebarMenuButton>
@@ -111,7 +123,7 @@ export default memo(function AppSidebarContent() {
             {index === navigationConfig.length - 1 && (
               <SidebarMenuItem>
                 <SidebarMenuButton onClick={toggleDarkMode}>
-                  <Icon icon={isDarkMode ? 'lucide:moon' : 'lucide:sun'} />
+                  <Icon icon={isDarkMode ? 'lucide:moon' : 'lucide:sun'} className="mr-2" />
                   {isDarkMode ? 'Dark' : 'Light'} Mode
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -121,4 +133,4 @@ export default memo(function AppSidebarContent() {
       ))}
     </SidebarContent>
   );
-});
+}

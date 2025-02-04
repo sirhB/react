@@ -1,4 +1,4 @@
-import { useToast } from "@/Components/shadcn/hooks/use-toast"
+import { useToast } from "@/Components/hooks/use-toast"
 import {
   Toast,
   ToastClose,

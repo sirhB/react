@@ -118,7 +118,7 @@ export default memo(function Welcome({ canLogin, canRegister }) {
                                 style={{ contain: 'layout paint' }}
                             >
                                 <span className="block text-foreground">Modern Laravel</span>
-                                <span className="mt-2 block bg-gradient-to-r from-red-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
+                                <span className="mt-2 block bg-linear-to-r from-red-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
                                     SaaS Starter Kit
                                 </span>
                             </h1>

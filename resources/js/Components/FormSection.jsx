@@ -35,7 +35,7 @@ export default memo(function FormSection({
 
       <div className="mt-5 md:col-span-2 md:mt-0">
         <form onSubmit={handleSubmit}>
-          <div className="rounded-lg border bg-background px-4 py-5 shadow-sm sm:p-6">
+          <div className="rounded-lg border bg-background px-4 py-5 shadow-xs sm:p-6">
             <div className="grid grid-cols-6 gap-6">
               {form}
             </div>

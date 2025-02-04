@@ -20,7 +20,7 @@ export default memo(function ActionSection({ title, description, aside, content 
       </div>
 
       <div className="mt-5 md:col-span-2 md:mt-0">
-        <div className="border px-4 py-5 shadow-sm rounded-lg sm:p-6">
+        <div className="border px-4 py-5 shadow-xs rounded-lg sm:p-6">
           {content}
         </div>
       </div>

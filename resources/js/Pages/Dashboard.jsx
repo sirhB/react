@@ -1,44 +1,40 @@
-import StatsCard from '@/Components/StatsCard';
+import FeaturesCard from '@/Components/FeaturesCard';
 import AppLayout from '@/Layouts/AppLayout';
 
-const stats = [
+const features = [
   {
-    value: 'Larasonic Documentation',
+    title: 'Larasonic Documentation',
     description: 'Check out our comprehensive documentation',
-    link: 'https://docs.larasonic.com/introduction',
     icon: 'lucide:book-open',
+    href: 'https://docs.larasonic.com',
   },
   {
-    value: 'GitHub Repository',
-    description: 'Star us on GitHub',
-    link: 'https://github.com/pushpak1300/Larasonic',
-    icon: 'lucide:github',
-  },
-  {
-    value: 'Roadmap',
+    title: 'Roadmap',
     description: "See what's coming next",
-    link: 'https://github.com/pushpak1300/Larasonic/discussions/categories/roadmap',
     icon: 'lucide:map',
+    href: 'https://github.com/pushpak1300/larasonic/discussions/categories/roadmap',
   },
   {
-    value: 'Join Us',
+    title: 'GitHub Repository',
+    description: 'Star us on GitHub',
+    icon: 'lucide:github',
+    href: 'https://github.com/pushpak1300/larasonic',
+  },
+  {
+    title: 'Join Us',
     description: 'Be part of our growing community',
-    link: 'https://github.com/pushpak1300/Larasonic/discussions',
     icon: 'lucide:users',
+    href: 'https://github.com/pushpak1300/larasonic/discussions',
   },
 ];
 
 export default function Dashboard() {
   return (
     <AppLayout title="Dashboard">
-      <div>
-        <div className="flex flex-1 flex-col gap-4 pt-0">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-2">
-            {stats.map((stat) => (
-              <StatsCard key={stat.value} {...stat} />
-            ))}
-          </div>
-        </div>
+      <div className="grid gap-4 md:grid-cols-2">
+        {features.map((feature) => (
+          <FeaturesCard key={feature.title} {...feature} />
+        ))}
       </div>
     </AppLayout>
   );

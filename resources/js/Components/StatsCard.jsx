@@ -9,7 +9,7 @@ export default memo(function StatsCard({ value, description = '', link = '', ico
       target="_blank"
       rel="noopener noreferrer"
     >
-      <Card className="hover:shadow-sm">
+      <Card className="hover:shadow-xs">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">
             <Icon

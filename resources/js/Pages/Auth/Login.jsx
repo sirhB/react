@@ -11,6 +11,7 @@ import SocialLoginButton from '@/Components/SocialLoginButton';
 import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
+import {route} from 'ziggy-js';
 
 export default function Login({ canResetPassword, status, availableOauthProviders }) {
   const { props } = usePage();
@@ -41,10 +42,6 @@ export default function Login({ canResetPassword, status, availableOauthProvider
   const handlePasswordLogin = (e) => {
     e.preventDefault();
     passwordForm
-      .transform((data) => ({
-        ...data,
-        remember: data.remember ? 'on' : '',
-      }))
       .post(route('login'), {
         onFinish: () => passwordForm.reset('password'),
       });

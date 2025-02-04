@@ -3,40 +3,36 @@ import AppTeamManager from '@/Components/AppTeamManager';
 import AppUserManager from '@/Components/AppUserManager';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from '@/Components/shadcn/ui/breadcrumb';
 import { Separator } from '@/Components/shadcn/ui/separator';
-import { Sidebar, SidebarFooter, SidebarHeader, SidebarInset } from '@/Components/shadcn/ui/sidebar';
-import { SidebarMenu, SidebarMenuItem, SidebarProvider, SidebarTrigger } from '@/Components/shadcn/ui/sidebar';
-import { Sonner } from '@/Components/shadcn/ui/sonner';
+import { Sidebar, SidebarFooter, SidebarHeader, SidebarInset, SidebarRail, SidebarProvider, SidebarTrigger } from '@/Components/shadcn/ui/sidebar';
+import { Toaster } from '@/Components/shadcn/ui/sonner';
 import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
 import { usePage } from '@inertiajs/react';
 
-export default function AppLayout({ title, children }) {
+function AppSidebar() {
   const { props } = usePage();
+
+  return (
+    <Sidebar collapsible="icon" className="border-r">
+      <SidebarHeader>
+        {props.jetstream.hasTeamFeatures && <AppTeamManager />}
+      </SidebarHeader>
+      <AppSidebarContent />
+      <SidebarFooter>
+        <AppUserManager />
+      </SidebarFooter>
+      <SidebarRail />
+    </Sidebar>
+  );
+}
+
+export default function AppLayout({ title, children }) {
   useSeoMetaTags({ title });
 
   return (
-    <div>
-      <Sonner position="top-center" />
+    <div className="min-h-screen bg-background">
+      <Toaster position="top-center" />
       <SidebarProvider>
-        <Sidebar collapsible="icon">
-          <SidebarHeader>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                {props.jetstream.hasTeamFeatures && <AppTeamManager />}
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarHeader>
-
-          <AppSidebarContent />
-
-          <SidebarFooter>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <AppUserManager />
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarFooter>
-        </Sidebar>
-
+        <AppSidebar />
         <SidebarInset>
           <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
             <div className="flex items-center gap-2 px-4">
@@ -53,9 +49,9 @@ export default function AppLayout({ title, children }) {
               </Breadcrumb>
             </div>
           </header>
-          <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
+          <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
             {children}
-          </main>
+          </div>
         </SidebarInset>
       </SidebarProvider>
     </div>
