@@ -1,4 +1,5 @@
-import { useSeoMeta } from '@unhead/vue'
+import { useEffect } from 'react';
+import { usePage } from '@inertiajs/react';
 
 // Default SEO meta tags
 const defaultSeoMeta = {
@@ -36,13 +37,26 @@ const defaultSeoMeta = {
  *                                 without inheriting defaults.
  * @returns {void}
  */
-export function useSeoMetaTags(seoMeta, options = { merge: true }) {
-  if (!seoMeta)
-    return useSeoMeta(defaultSeoMeta)
+export function useSeoMetaTags({ title = null, description = null } = {}) {
+  const { props } = usePage();
+  const appName = props.appName || 'Laravel';
 
-  return useSeoMeta(
-    options.merge
-      ? { ...defaultSeoMeta, ...seoMeta }
-      : seoMeta,
-  )
+  useEffect(() => {
+    // Set title
+    const pageTitle = title ? `${title} - ${appName}` : appName;
+    document.title = pageTitle;
+
+    // Set description
+    if (description) {
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', description);
+      } else {
+        const meta = document.createElement('meta');
+        meta.name = 'description';
+        meta.content = description;
+        document.head.appendChild(meta);
+      }
+    }
+  }, [title, description, appName]);
 }

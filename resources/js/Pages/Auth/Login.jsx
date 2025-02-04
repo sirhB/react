@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Com
 import { Checkbox } from '@/Components/shadcn/ui/checkbox';
 import { Input } from '@/Components/shadcn/ui/input';
 import { Label } from '@/Components/shadcn/ui/label';
-import { Sonner, toast } from '@/Components/shadcn/ui/sonner';
+import { toast, Toaster } from "sonner"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/Components/shadcn/ui/tabs';
 import SocialLoginButton from '@/Components/SocialLoginButton';
 import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
@@ -91,7 +91,7 @@ export default function Login({ canResetPassword, status, availableOauthProvider
 
   return (
     <>
-      <Sonner position="top-center" />
+      <Toaster position="top-center" />
 
       <div className="flex min-h-screen flex-col items-center justify-center bg-linear-to-b from-background/50 to-background">
         <Card className="mx-auto w-[420px] shadow-lg transition-all duration-300 hover:shadow-xl">
@@ -174,7 +174,7 @@ export default function Login({ canResetPassword, status, availableOauthProvider
 
                       <Button
                         type="submit"
-                        className={\`w-full \${passwordForm.processing ? 'opacity-75' : ''}\`}
+                        className={`w-full ${passwordForm.processing ? 'opacity-75' : ''}`}
                         disabled={isProcessing}
                       >
                         {passwordForm.processing ? 'Signing in...' : 'Sign in'}
@@ -205,7 +205,7 @@ export default function Login({ canResetPassword, status, availableOauthProvider
 
                       <Button
                         type="submit"
-                        className={\`w-full \${loginLinkForm.processing ? 'opacity-75' : ''}\`}
+                        className={`w-full ${loginLinkForm.processing ? 'opacity-75' : ''}`}
                         disabled={isProcessing}
                       >
                         {loginLinkForm.processing ? 'Sending...' : 'Send Login Link'}

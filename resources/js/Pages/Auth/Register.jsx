@@ -7,19 +7,21 @@ import { Input } from '@/Components/shadcn/ui/input';
 import { Label } from '@/Components/shadcn/ui/label';
 import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
 import { Link, useForm, usePage } from '@inertiajs/react';
+import { memo } from 'react';
 
-export default function Register() {
-  const { props } = usePage();
+export default memo(function Register() {
+  const { props: { jetstream } } = usePage();
+
+  useSeoMetaTags({
+    title: 'Register',
+  });
+
   const form = useForm({
     name: '',
     email: '',
     password: '',
     password_confirmation: '',
     terms: false,
-  });
-
-  useSeoMetaTags({
-    title: 'Register',
   });
 
   const submit = (e) => {
@@ -36,7 +38,9 @@ export default function Register() {
           <CardTitle className="flex justify-center">
             <AuthenticationCardLogo />
           </CardTitle>
-          <CardDescription className="text-center text-2xl">Create your account</CardDescription>
+          <CardDescription className="text-center text-2xl">
+            Create your account
+          </CardDescription>
         </CardHeader>
 
         <CardContent>
@@ -48,7 +52,7 @@ export default function Register() {
                   id="name"
                   type="text"
                   value={form.data.name}
-                  onChange={(e) => form.setData('name', e.target.value)}
+                  onChange={e => form.setData('name', e.target.value)}
                   required
                   autoFocus
                   autoComplete="name"
@@ -62,7 +66,7 @@ export default function Register() {
                   id="email"
                   type="email"
                   value={form.data.email}
-                  onChange={(e) => form.setData('email', e.target.value)}
+                  onChange={e => form.setData('email', e.target.value)}
                   required
                   autoComplete="username"
                 />
@@ -75,7 +79,7 @@ export default function Register() {
                   id="password"
                   type="password"
                   value={form.data.password}
-                  onChange={(e) => form.setData('password', e.target.value)}
+                  onChange={e => form.setData('password', e.target.value)}
                   required
                   autoComplete="new-password"
                 />
@@ -88,32 +92,29 @@ export default function Register() {
                   id="password_confirmation"
                   type="password"
                   value={form.data.password_confirmation}
-                  onChange={(e) => form.setData('password_confirmation', e.target.value)}
+                  onChange={e => form.setData('password_confirmation', e.target.value)}
                   required
                   autoComplete="new-password"
                 />
                 <InputError message={form.errors.password_confirmation} />
               </div>
 
-              {props.jetstream.hasTermsAndPrivacyPolicyFeature && (
+              {jetstream?.hasTermsAndPrivacyPolicyFeature && (
                 <div>
                   <div className="flex items-center space-x-2">
                     <Checkbox
                       id="terms"
                       checked={form.data.terms}
-                      onCheckedChange={(checked) => form.setData('terms', checked)}
+                      onCheckedChange={checked => form.setData('terms', checked)}
                       name="terms"
                       required
                     />
-                    <label
-                      htmlFor="terms"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
+                    <label htmlFor="terms" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                       I agree to the{' '}
                       <a target="_blank" href={route('terms.show')} className="rounded-md text-sm underline">
                         Terms of Service
-                      </a>{' '}
-                      and{' '}
+                      </a>
+                      {' '}and{' '}
                       <a target="_blank" href={route('policy.show')} className="rounded-md text-sm underline">
                         Privacy Policy
                       </a>
@@ -128,7 +129,10 @@ export default function Register() {
                   Already registered?
                 </Link>
 
-                <Button className={form.processing ? 'opacity-25' : ''} disabled={form.processing}>
+                <Button
+                  className={form.processing ? 'opacity-25' : ''}
+                  disabled={form.processing}
+                >
                   Register
                 </Button>
               </div>
@@ -138,4 +142,4 @@ export default function Register() {
       </Card>
     </div>
   );
-}
+});

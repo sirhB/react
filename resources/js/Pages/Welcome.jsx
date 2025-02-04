@@ -127,7 +127,6 @@ export default memo(function Welcome({ canLogin, canRegister }) {
                         <p
                             className="mx-auto mt-6 max-w-2xl text-center text-base text-muted-foreground sm:text-lg md:text-xl"
                             style={{ contain: 'layout paint' }}
-                            fetchpriority="high"
                         >
                             Ship faster production-ready applications 10x faster with starter kit powered by Laravel Jetstream, Inertia V2,
                             and Shadcn/ui.

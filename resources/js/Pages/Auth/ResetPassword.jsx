@@ -7,8 +7,9 @@ import { Label } from '@/Components/shadcn/ui/label';
 import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
 import { cn } from '@/lib/utils';
 import { useForm } from '@inertiajs/react';
+import { memo } from 'react';
 
-export default function ResetPassword({ email, token }) {
+export default memo(function ResetPassword({ email, token }) {
   useSeoMetaTags({
     title: 'Reset Password',
   });
@@ -29,12 +30,14 @@ export default function ResetPassword({ email, token }) {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
-      <Card className={cn('mx-auto max-w-lg w-[380px]')}>
+      <Card className={cn('mx-auto max-w-lg', 'w-[380px]')}>
         <CardHeader>
           <CardTitle className="flex justify-center">
             <AuthenticationCardLogo />
           </CardTitle>
-          <CardDescription className="text-center text-2xl">Set your new password</CardDescription>
+          <CardDescription className="text-center text-2xl">
+            Set your new password
+          </CardDescription>
         </CardHeader>
 
         <CardContent>
@@ -45,7 +48,7 @@ export default function ResetPassword({ email, token }) {
                 id="email"
                 type="email"
                 value={form.data.email}
-                onChange={(e) => form.setData('email', e.target.value)}
+                onChange={e => form.setData('email', e.target.value)}
                 className="mt-1 block w-full"
                 required
                 autoFocus
@@ -60,7 +63,7 @@ export default function ResetPassword({ email, token }) {
                 id="password"
                 type="password"
                 value={form.data.password}
-                onChange={(e) => form.setData('password', e.target.value)}
+                onChange={e => form.setData('password', e.target.value)}
                 className="mt-1 block w-full"
                 required
                 autoComplete="new-password"
@@ -74,7 +77,7 @@ export default function ResetPassword({ email, token }) {
                 id="password_confirmation"
                 type="password"
                 value={form.data.password_confirmation}
-                onChange={(e) => form.setData('password_confirmation', e.target.value)}
+                onChange={e => form.setData('password_confirmation', e.target.value)}
                 className="mt-1 block w-full"
                 required
                 autoComplete="new-password"
@@ -83,7 +86,10 @@ export default function ResetPassword({ email, token }) {
             </div>
 
             <div className="mt-4 flex items-center justify-end">
-              <Button className={form.processing ? 'opacity-25' : ''} disabled={form.processing}>
+              <Button
+                className={form.processing ? 'opacity-25' : ''}
+                disabled={form.processing}
+              >
                 Reset Password
               </Button>
             </div>
@@ -92,4 +98,4 @@ export default function ResetPassword({ email, token }) {
       </Card>
     </div>
   );
-}
+});
