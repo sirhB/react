@@ -24,7 +24,7 @@ final class SubscriptionController extends Controller
      */
     public function index(): RedirectResponse
     {
-        if (Config::get('cashier.billing_enabled')) {
+        if (! Config::get('cashier.billing_enabled')) {
             return redirect()->route('dashboard');
         }
 

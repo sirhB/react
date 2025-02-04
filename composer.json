@@ -91,6 +91,9 @@
     "analyse": [
       "./vendor/bin/phpstan analyse -c phpstan.neon --ansi"
     ],
+    "test": [
+      "./vendor/bin/pest --parallel"
+    ],
     "format": [
       "./vendor/bin/pint --ansi",
       "./vendor/bin/rector --ansi"
