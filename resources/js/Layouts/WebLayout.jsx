@@ -167,7 +167,7 @@ export default function WebLayout({ children }) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Sevalla
+                  Sevalla 
                 </a>
                 ❤️
               </span>
