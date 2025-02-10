@@ -2,7 +2,7 @@
 
 import { memo, useEffect, useState } from 'react';
 import { Check, Copy } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/Components/lib/utils';
 
 export default memo(function Terminal() {
     const [terminalStep, setTerminalStep] = useState(0);

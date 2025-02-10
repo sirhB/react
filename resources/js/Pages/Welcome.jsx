@@ -15,7 +15,7 @@ import { Button } from '@/Components/shadcn/ui/button';
 import WebLayout from '@/Layouts/WebLayout';
 import { Icon } from '@iconify/react';
 import { Link } from '@inertiajs/react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/Components/lib/utils';
 
 const features = Object.freeze([
     {

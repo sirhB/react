@@ -9,7 +9,7 @@ import Input from '@/Components/shadcn/ui/input/Input.vue'
 
 import Label from '@/Components/shadcn/ui/label/Label.vue'
 import { useSeoMetaTags } from '@/Composables/useSeoMetaTags.js'
-import { cn } from '@/lib/utils'
+import { cn } from '@/Components/lib/utils'
 import { useForm } from '@inertiajs/vue3'
 import { inject } from 'vue'
 

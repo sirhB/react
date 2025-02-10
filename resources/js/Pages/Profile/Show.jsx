@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { Separator } from '@/Components/shadcn/ui/separator';
 import AppLayout from '@/Layouts/AppLayout';
 import DeleteUserForm from './Partials/DeleteUserForm';
 import LinkedAccountsForm from './Partials/LinkedAccountsForm';
@@ -6,40 +7,84 @@ import LogoutOtherBrowserSessionsForm from './Partials/LogoutOtherBrowserSession
 import TwoFactorAuthenticationForm from './Partials/TwoFactorAuthenticationForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
-import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
+import { usePage } from '@inertiajs/react';
 
-export default memo(function Show({ sessions }) {
-  useSeoMetaTags({
-    title: 'Profile',
-  });
+export default memo(function Show({
+  sessions = [],
+  confirmsTwoFactorAuthentication = false,
+  availableOauthProviders = {},
+  activeOauthProviders = []
+}) {
+  const { props: { jetstream, auth: { user } } } = usePage();
 
   return (
-    <AppLayout>
-      <div className="py-12">
-        <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
-          <div className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
-            <UpdateProfileInformationForm className="max-w-xl" />
-          </div>
+    <AppLayout title="Settings">
+      <div className="text-xl font-semibold leading-tight">
+        Profile Settings
+      </div>
 
-          <div className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
-            <UpdatePasswordForm className="max-w-xl" />
-          </div>
+      <div>
+        <div className="max-w-7xl">
+          {jetstream.canUpdateProfileInformation && (
+            <div>
+              <UpdateProfileInformationForm user={user} />
+            </div>
+          )}
 
-          <div className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
-            <LinkedAccountsForm className="max-w-xl" />
-          </div>
+          {Object.keys(availableOauthProviders).length > 0 && (
+            <>
+              <Separator className="my-8 hidden sm:block" />
+              <div>
+                <LinkedAccountsForm
+                  className="mt-10 sm:mt-0"
+                  availableProviders={availableOauthProviders}
+                  activeProviders={activeOauthProviders}
+                />
+              </div>
+            </>
+          )}
 
-          <div className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
-            <TwoFactorAuthenticationForm className="max-w-xl" />
-          </div>
+          {jetstream.canUpdatePassword && (
+            <>
+              <Separator className="my-8 hidden sm:block" />
+              <div>
+                <UpdatePasswordForm className="mt-10 sm:mt-0" />
+              </div>
+            </>
+          )}
 
-          <div className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
-            <LogoutOtherBrowserSessionsForm sessions={sessions} className="max-w-xl" />
-          </div>
+          {jetstream.canManageTwoFactorAuthentication && (
+            <>
+              <Separator className="my-8 hidden sm:block" />
+              <div>
+                <TwoFactorAuthenticationForm
+                  className="mt-10 sm:mt-0"
+                  requiresConfirmation={confirmsTwoFactorAuthentication}
+                />
+              </div>
+            </>
+          )}
 
-          <div className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
-            <DeleteUserForm className="max-w-xl" />
-          </div>
+          {sessions.length > 0 && (
+            <>
+              <Separator className="my-8 hidden sm:block" />
+              <div>
+                <LogoutOtherBrowserSessionsForm
+                  sessions={sessions}
+                  className="mt-10 sm:mt-0"
+                />
+              </div>
+            </>
+          )}
+
+          {jetstream.hasAccountDeletionFeatures && (
+            <>
+              <Separator className="my-8 hidden sm:block" />
+              <div>
+                <DeleteUserForm className="mt-10 sm:mt-0" />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </AppLayout>

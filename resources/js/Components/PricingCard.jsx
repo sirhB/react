@@ -4,7 +4,7 @@ import { memo } from 'react';
 import { CheckIcon } from 'lucide-react';
 import { Button } from '@/Components/shadcn/ui/button';
 import { Card, CardFooter } from '@/Components/shadcn/ui/card';
-import { cn } from '@/lib/utils';
+import { cn } from '@/Components/lib/utils';
 
 const defaultFeatures = [
   'Production-ready Docker setup',

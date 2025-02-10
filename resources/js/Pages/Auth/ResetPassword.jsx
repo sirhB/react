@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Com
 import { Input } from '@/Components/shadcn/ui/input';
 import { Label } from '@/Components/shadcn/ui/label';
 import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
-import { cn } from '@/lib/utils';
+import { cn } from '@/Components/lib/utils';
 import { useForm } from '@inertiajs/react';
 import { memo } from 'react';
 

@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/Components/lib/utils';
 import { Label } from '@/Components/shadcn/ui/label';
 import { memo } from 'react';
 

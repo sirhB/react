@@ -9,7 +9,7 @@ import {
 import { Icon } from '@iconify/react';
 import { Link } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/Components/lib/utils';
 
 const navigationConfig = [
   {

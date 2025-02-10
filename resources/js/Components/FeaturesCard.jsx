@@ -1,7 +1,7 @@
 'use client';
 
 import { memo } from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/Components/lib/utils';
 import { Icon } from '@iconify/react';
 import { Card } from '@/Components/shadcn/ui/card';
 

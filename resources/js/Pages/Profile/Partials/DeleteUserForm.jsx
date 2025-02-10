@@ -1,90 +1,56 @@
-import { memo, useState } from 'react';
-import InputError from '@/Components/InputError';
+import { memo } from 'react';
 import { Button } from '@/Components/shadcn/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/shadcn/ui/card';
-import { Input } from '@/Components/shadcn/ui/input';
-import { Label } from '@/Components/shadcn/ui/label';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/Components/shadcn/ui/dialog';
 import { useForm } from '@inertiajs/react';
+import ConfirmsPassword from '@/Components/ConfirmsPassword';
+import ActionSection from '@/Components/ActionSection';
 
 export default memo(function DeleteUserForm({ className = '' }) {
-  const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
+  const form = useForm({});
 
-  const form = useForm({
-    password: '',
-  });
-
-  const confirmUserDeletion = () => {
-    setConfirmingUserDeletion(true);
-  };
-
-  const deleteUser = (e) => {
-    e.preventDefault();
-    form.delete(route('current-user.destroy'), {
+  const deleteUser = (password) => {
+    form.transform(data => ({
+      ...data,
+      password,
+    })).delete(route('current-user.destroy'), {
       preserveScroll: true,
-      onSuccess: () => closeModal(),
-      onError: () => form.reset('password'),
-      onFinish: () => form.reset('password'),
+      onSuccess: () => form.reset(),
+      onFinish: () => form.reset(),
     });
   };
 
-  const closeModal = () => {
-    setConfirmingUserDeletion(false);
-    form.reset('password');
-  };
-
   return (
-    <Card className={className}>
-      <CardHeader>
-        <CardTitle>Delete Account</CardTitle>
-        <CardDescription>
-          Permanently delete your account.
-        </CardDescription>
-      </CardHeader>
-
-      <CardContent>
-        <div className="max-w-xl text-sm text-gray-600 dark:text-gray-400">
-          Once your account is deleted, all of its resources and data will be permanently deleted. Before
-          deleting your account, please download any data or information that you wish to retain.
+    <ActionSection>
+      <div className="flex justify-between md:col-span-1">
+        <div className="px-4 sm:px-0">
+          <h3 className="text-lg font-medium">
+            Delete Account
+          </h3>
+          <p className="mt-1 text-sm">
+            Permanently delete your account.
+          </p>
         </div>
+      </div>
 
-        <div className="mt-5">
-          <Button variant="destructive" onClick={confirmUserDeletion}>Delete Account</Button>
+      <div className="mt-5 md:col-span-2 md:mt-0">
+        <div className="border px-4 py-5 shadow-xs rounded-lg sm:p-6">
+          <div className="max-w-xl text-sm text-gray-600 dark:text-gray-400">
+            Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.
+          </div>
+
+          <div className="mt-5">
+            <ConfirmsPassword
+              title="Delete Account"
+              content="Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm."
+              button="Delete Account"
+              onConfirmed={deleteUser}
+            >
+              <Button variant="destructive">
+                Delete Account
+              </Button>
+            </ConfirmsPassword>
+          </div>
         </div>
-
-        <Dialog open={confirmingUserDeletion} onOpenChange={closeModal}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Are you sure you want to delete your account?</DialogTitle>
-              <DialogDescription>
-                Once your account is deleted, all of its resources and data will be permanently deleted.
-                Please enter your password to confirm you would like to permanently delete your account.
-              </DialogDescription>
-            </DialogHeader>
-
-            <form onSubmit={deleteUser}>
-              <div>
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={form.data.password}
-                  onChange={e => form.setData('password', e.target.value)}
-                  className="mt-1 block w-3/4"
-                  autoFocus
-                  placeholder="Password"
-                />
-                <InputError message={form.errors.password} className="mt-2" />
-              </div>
-
-              <DialogFooter className="mt-6">
-                <Button variant="outline" onClick={closeModal}>Cancel</Button>
-                <Button variant="destructive" disabled={form.processing}>Delete Account</Button>
-              </DialogFooter>
-            </form>
-          </DialogContent>
-        </Dialog>
-      </CardContent>
-    </Card>
+      </div>
+    </ActionSection>
   );
 });
