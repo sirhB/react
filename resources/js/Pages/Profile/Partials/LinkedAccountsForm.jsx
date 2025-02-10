@@ -80,15 +80,15 @@ export default memo(function LinkedAccountsForm({
           </div>
 
           <div>
-            {Object.entries(availableProviders).map((provider) => (
+            {Object.entries(availableProviders).map(([slug, provider]) => (
               <div
-                key={provider.slug}
+                key={slug}
                 className="flex items-center space-x-4 rounded-md border p-4 mt-4"
               >
                 <Icon icon={provider.icon} className="size-8" />
                 <div className="flex-1 space-y-1">
                   <Label>
-                    {provider?.slug?.charAt(0)?.toUpperCase() + provider?.slug?.slice(1)}
+                    {provider.slug.charAt(0).toUpperCase() + provider.slug.slice(1)}
                   </Label>
                 </div>
                 <Switch
