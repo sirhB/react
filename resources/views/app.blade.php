@@ -21,7 +21,7 @@
             "name": "Larasonic",
             "url": "https://larasonic.com/",
             "image": "https://larasonic.com/images/og.webp",
-            "description": "A modern Laravel SaaS starter kit for the VILT stack. Clone the repo, start building scalable and maintainable applications quickly.",
+            "description": "A modern Laravel SaaS starter kit for the RILT stack. Clone the repo, start building scalable and maintainable applications quickly.",
             "applicationCategory": "DeveloperTool",
             "operatingSystem": "All",
             "offers": {

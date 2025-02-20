@@ -7,7 +7,7 @@ export default memo(() => {
   const [copied, setCopied] = useState(false)
 
   const terminalSteps = [
-    'git clone https://github.com/pushpak1300/larasonic',
+    'git clone https://github.com/shipfastlabs/larasonic-react',
     'cd larasonic && composer install',
     '.vendor/bin/sail up',
     '.vendor/bin/sail composer setup',

@@ -9,7 +9,7 @@ const navLinks = [
   { label: 'Docs', href: 'https://docs.larasonic.com/introduction', external: true },
 ]
 
-const githubUrl = 'https://github.com/pushpak1300/Larasonic'
+const githubUrl = 'https://github.com/shipfastlabs/larasonic-react'
 const twitterUrl = 'https://x.com/pushpak1300?ref=larasonic'
 
 export default function WebLayout({ children }) {

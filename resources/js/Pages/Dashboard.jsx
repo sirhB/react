@@ -12,19 +12,19 @@ const features = [
     title: 'Roadmap',
     description: 'See what\'s coming next',
     icon: 'lucide:map',
-    href: 'https://github.com/pushpak1300/larasonic/discussions/categories/roadmap',
+    href: 'https://github.com/shipfastlabs/larasonic-react/discussions/categories/roadmap',
   },
   {
     title: 'GitHub Repository',
     description: 'Star us on GitHub',
     icon: 'lucide:github',
-    href: 'https://github.com/pushpak1300/larasonic',
+    href: 'https://github.com/shipfastlabs/larasonic-react',
   },
   {
     title: 'Join Us',
     description: 'Be part of our growing community',
     icon: 'lucide:users',
-    href: 'https://github.com/pushpak1300/larasonic/discussions',
+    href: 'https://github.com/shipfastlabs/larasonic-react/discussions',
   },
 ]
 

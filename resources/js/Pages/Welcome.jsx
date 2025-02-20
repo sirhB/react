@@ -91,7 +91,7 @@ const faqItems = Object.freeze([
   },
 ])
 
-const githubUrl = 'https://github.com/pushpak1300/larasonic'
+const githubUrl = 'https://github.com/shipfastlabs/larasonic-react'
 
 const sponsorLinks = {
   github: 'https://github.com/sponsors/pushpak1300',
