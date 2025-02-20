@@ -2,7 +2,7 @@
 
 ![Larasonic](public/images/og.webp)
 
-Larasonic is a modern, open-source SaaS starter kit with Laravel, Vue.js, TailwindCSS, and Inertia.
+Larasonic is a modern, open-source SaaS starter kit with Laravel, React, Shadcn, TailwindCSS, and Inertia.
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/pushpak1300/Larasonic?style=for-the-badge) [![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE.md) [![Github-sponsors](https://img.shields.io/badge/sponsor-30363D?style=for-the-badge&logo=GitHub-Sponsors&logoColor=#EA4AAA)](https://github.com/sponsors/pushpak1300)
 
