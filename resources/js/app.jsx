@@ -3,19 +3,19 @@ import { createInertiaApp } from '@inertiajs/react'
 
 import { createHead, UnheadProvider } from '@unhead/react/client'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
+
 import { createRoot } from 'react-dom/client'
+import { CapoPlugin } from 'unhead'
 import '../css/app.css'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 // Create a global head instance with Capo plugin
-// const head = createHead({
-//     plugins: [
-//         CapoPlugin(),
-//     ],
-// })
-
-const head = createHead()
+const head = createHead({
+  plugins: [
+    CapoPlugin(),
+  ],
+})
 
 createInertiaApp({
   title: title => `${title} - ${appName}`,

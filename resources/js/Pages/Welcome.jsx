@@ -1,5 +1,3 @@
-'use client'
-
 import FeaturesCard from '@/Components/FeaturesCard'
 import PricingCard from '@/Components/PricingCard'
 import {

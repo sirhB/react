@@ -1,5 +1,3 @@
-'use client'
-
 import { cn } from '@/Components/lib/utils'
 import { Button } from '@/Components/shadcn/ui/button'
 import { Card, CardFooter } from '@/Components/shadcn/ui/card'

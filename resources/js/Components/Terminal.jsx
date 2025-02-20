@@ -1,5 +1,3 @@
-'use client'
-
 import { cn } from '@/Components/lib/utils'
 import { Check, Copy } from 'lucide-react'
 import { memo, useEffect, useState } from 'react'

@@ -1,5 +1,3 @@
-'use client'
-
 import { cn } from '@/Components/lib/utils'
 import { memo } from 'react'
 
