@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/Components/shadcn/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/shadcn/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,18 +7,19 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/Components/shadcn/ui/dropdown-menu';
-import { SidebarMenuButton } from '@/Components/shadcn/ui/sidebar';
-import { Icon } from '@iconify/react';
-import { Link, router, usePage } from '@inertiajs/react';
-import { memo } from 'react';
+} from '@/Components/shadcn/ui/dropdown-menu'
+import { SidebarMenuButton } from '@/Components/shadcn/ui/sidebar'
+import { Icon } from '@iconify/react'
+import { Link, router, usePage } from '@inertiajs/react'
+import { memo } from 'react'
+import { route } from 'ziggy-js'
 
-export default memo(function AppUserManager() {
-  const { auth } = usePage().props;
+export default memo(() => {
+  const { auth } = usePage().props
 
   const logout = () => {
-    router.post(route('logout'));
-  };
+    router.post(route('logout'))
+  }
 
   return (
     <DropdownMenu>
@@ -94,5 +95,5 @@ export default memo(function AppUserManager() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-});
+  )
+})

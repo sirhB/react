@@ -1,29 +1,34 @@
-import { memo } from 'react';
-import { Icon } from '@iconify/react';
-import { Button } from '@/Components/shadcn/ui/button';
-import { useForm } from '@inertiajs/react';
-import ConfirmsPassword from '@/Components/ConfirmsPassword';
-import { toast } from 'sonner';
-import ActionSection from '@/Components/ActionSection';
+import ActionSection from '@/Components/ActionSection'
+import ConfirmsPassword from '@/Components/ConfirmsPassword'
+import { Button } from '@/Components/shadcn/ui/button'
+import { Icon } from '@iconify/react'
+import { useForm } from '@inertiajs/react'
+import { memo } from 'react'
+import { toast } from 'sonner'
+import { route } from 'ziggy-js'
 
-export default memo(function LogoutOtherBrowserSessionsForm({ className = '', sessions = [] }) {
-  const form = useForm({
+const DEFAULT_SESSIONS = []
+
+export default memo(({ sessions = DEFAULT_SESSIONS }) => {
+  const { delete: destroy, transform, reset } = useForm({
     password: '',
-  });
+  })
 
   const logoutOtherBrowserSessions = (password) => {
-    form.transform(data => ({
+    transform(data => ({
       ...data,
       password,
-    })).delete(route('other-browser-sessions.destroy'), {
+    }))
+
+    destroy(route('other-browser-sessions.destroy'), {
       preserveScroll: true,
       onSuccess: () => {
-        form.reset();
-        toast.success('Logged out of other browser sessions');
+        toast.success('Logged out of other browser sessions')
+        reset()
       },
-      onFinish: () => form.reset(),
-    });
-  };
+      onFinish: () => reset(),
+    })
+  }
 
   return (
     <ActionSection>
@@ -46,29 +51,40 @@ export default memo(function LogoutOtherBrowserSessionsForm({ className = '', se
 
           {sessions.length > 0 && (
             <div className="mt-5 space-y-6">
-              {sessions.map((session, i) => (
-                <div key={i} className="flex items-center">
+              {sessions.map(session => (
+                <div key={`${session.ip_address}-${session.last_active}`} className="flex items-center">
                   <div>
-                    {session.agent.is_desktop ? (
-                      <Icon icon="lucide:laptop" className="size-8" />
-                    ) : (
-                      <Icon icon="lucide:tablet-smartphone" className="size-8" />
-                    )}
+                    {session.agent.is_desktop
+                      ? (
+                          <Icon icon="lucide:laptop" className="size-8" />
+                        )
+                      : (
+                          <Icon icon="lucide:tablet-smartphone" className="size-8" />
+                        )}
                   </div>
 
                   <div className="ms-3">
                     <div className="text-sm">
-                      {session.agent.platform ? session.agent.platform : 'Unknown'} - {session.agent.browser ? session.agent.browser : 'Unknown'}
+                      {session.agent.platform ? session.agent.platform : 'Unknown'}
+                      {' '}
+                      -
+                      {session.agent.browser ? session.agent.browser : 'Unknown'}
                     </div>
 
                     <div>
                       <div className="text-xs">
-                        {session.ip_address},
-                        {session.is_current_device ? (
-                          <span className="font-semibold text-green-400">This device</span>
-                        ) : (
-                          <span>Last active {session.last_active}</span>
-                        )}
+                        {session.ip_address}
+                        ,
+                        {session.is_current_device
+                          ? (
+                              <span className="font-semibold text-green-400">This device</span>
+                            )
+                          : (
+                              <span>
+                                Last active
+                                {session.last_active}
+                              </span>
+                            )}
                       </div>
                     </div>
                   </div>
@@ -92,5 +108,5 @@ export default memo(function LogoutOtherBrowserSessionsForm({ className = '', se
         </div>
       </div>
     </ActionSection>
-  );
-});
+  )
+})

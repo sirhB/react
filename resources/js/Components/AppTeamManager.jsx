@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from '@/Components/shadcn/ui/avatar';
+import { Avatar, AvatarFallback } from '@/Components/shadcn/ui/avatar'
 import {
   Command,
   CommandEmpty,
@@ -7,30 +7,29 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/Components/shadcn/ui/command';
+} from '@/Components/shadcn/ui/command'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@/Components/shadcn/ui/dropdown-menu';
-import { SidebarMenuButton } from '@/Components/shadcn/ui/sidebar';
-import { Icon } from '@iconify/react';
-import { Link, router, usePage } from '@inertiajs/react';
-import { memo, useState } from 'react';
+} from '@/Components/shadcn/ui/dropdown-menu'
+import { SidebarMenuButton } from '@/Components/shadcn/ui/sidebar'
+import { Icon } from '@iconify/react'
+import { Link, router, usePage } from '@inertiajs/react'
+import { memo, useState } from 'react'
+import { route } from 'ziggy-js'
 
-export default memo(function AppTeamManager() {
-  const [open, setOpen] = useState(false);
-  const { auth, jetstream } = usePage().props;
+export default memo(() => {
+  const [open, setOpen] = useState(false)
+  const { auth, jetstream } = usePage().props
 
   const switchToTeam = (team) => {
     router.put(route('current-team.update'), {
       team_id: team.id,
     }, {
       preserveState: false,
-    });
-  };
-
-  const filterFunction = (list, term) => list.filter(i => i?.name?.toLowerCase()?.includes(term));
+    })
+  }
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -55,18 +54,18 @@ export default memo(function AppTeamManager() {
         side="bottom"
         sideOffset={4}
       >
-        <Command filter={filterFunction}>
+        <Command>
           <CommandList>
             <CommandInput placeholder="Search team..." />
             <CommandEmpty>No team found.</CommandEmpty>
             <CommandGroup heading="Switch Teams">
-              {auth.user.all_teams.map((team) => (
+              {auth.user.all_teams.map(team => (
                 <CommandItem
                   key={team.id}
-                  value={team}
+                  value={team.name}
                   onSelect={() => {
-                    switchToTeam(team);
-                    setOpen(false);
+                    switchToTeam(team)
+                    setOpen(false)
                   }}
                 >
                   <Avatar className="mr-2 size-5">
@@ -101,5 +100,5 @@ export default memo(function AppTeamManager() {
         </Command>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-});
+  )
+})

@@ -1,3 +1,4 @@
+import { cn } from '@/Components/lib/utils'
 import {
   Dialog,
   DialogContent,
@@ -5,11 +6,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/Components/shadcn/ui/dialog';
-import { memo } from 'react';
-import { cn } from '@/Components/lib/utils';
+} from '@/Components/shadcn/ui/dialog'
+import { memo } from 'react'
 
-export default memo(function ConfirmationModal({
+export default memo(({
   show = false,
   maxWidth = '2xl',
   closeable = true,
@@ -17,7 +17,7 @@ export default memo(function ConfirmationModal({
   title,
   content,
   footer,
-}) {
+}) => {
   return (
     <Dialog
       open={show}
@@ -40,5 +40,5 @@ export default memo(function ConfirmationModal({
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
-});
+  )
+})

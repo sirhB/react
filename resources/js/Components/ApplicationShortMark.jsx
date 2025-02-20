@@ -1,9 +1,9 @@
-import { memo } from 'react';
+import { memo } from 'react'
 
-export default memo(function ApplicationShortMark() {
+export default memo(() => {
   return (
     <span className="text-2xl font-bold">
       🚀
     </span>
-  );
-});
+  )
+})

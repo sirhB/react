@@ -1,4 +1,4 @@
-import { Label } from "@/Components/shadcn/ui/label"
+import { Label } from '@/Components/shadcn/ui/label'
 import {
   Select,
   SelectContent,
@@ -6,7 +6,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/Components/shadcn/ui/select"
+} from '@/Components/shadcn/ui/select'
 
 export default function ModelSelector({ models, onModelSelect }) {
   return (
@@ -15,14 +15,14 @@ export default function ModelSelector({ models, onModelSelect }) {
       <Select
         id="model"
         defaultValue={models[0]}
-        onValueChange={(value) => onModelSelect(value)}
+        onValueChange={value => onModelSelect(value)}
       >
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder={models[0]} />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            {models.map((model) => (
+            {models.map(model => (
               <SelectItem key={model} value={model}>
                 <span className="text-sm">{model}</span>
               </SelectItem>

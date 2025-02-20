@@ -1,39 +1,41 @@
-import { memo, useState, useEffect } from 'react';
-import { Icon } from '@iconify/react';
-import { Label } from '@/Components/shadcn/ui/label';
-import { Switch } from '@/Components/shadcn/ui/switch';
-import { router, usePage } from '@inertiajs/react';
-import { toast } from 'sonner';
-import ActionSection from '@/Components/ActionSection';
+import ActionSection from '@/Components/ActionSection'
+import { Label } from '@/Components/shadcn/ui/label'
+import { Switch } from '@/Components/shadcn/ui/switch'
+import { Icon } from '@iconify/react'
+import { router, usePage } from '@inertiajs/react'
+import { memo, useEffect, useState } from 'react'
+import { toast } from 'sonner'
+import { route } from 'ziggy-js'
 
-export default memo(function LinkedAccountsForm({
-  className = '',
-  availableProviders = {},
-  activeProviders = []
-}) {
-  const { props: { flash } } = usePage();
-  const [loadingProvider, setLoadingProvider] = useState(null);
+const defaultProps = {
+  availableProviders: {},
+  activeProviders: [],
+}
+
+export default memo(({ availableProviders = defaultProps.availableProviders, activeProviders = defaultProps.activeProviders }) => {
+  const { props: { flash } } = usePage()
+  const [loadingProvider, setLoadingProvider] = useState(null)
 
   useEffect(() => {
     if (flash.success) {
-      toast.success(flash.success);
+      toast.success(flash.success)
     }
     if (flash.error) {
-      toast.error(flash.error);
+      toast.error(flash.error)
     }
-  }, [flash]);
+  }, [flash])
 
   const toggleLink = (provider) => {
-    setLoadingProvider(provider);
+    setLoadingProvider(provider)
     if (!activeProviders.includes(provider)) {
       toast.promise(
         new Promise(resolve => setTimeout(resolve, 1000)),
         {
           loading: 'Redirecting to provider...',
-        }
-      );
-        window.location.href = route('oauth.redirect', { provider: provider.slug });
-      return;
+        },
+      )
+      window.location.href = route('oauth.redirect', { provider })
+      return
     }
 
     router.delete(route('oauth.destroy', { provider }), {
@@ -43,22 +45,22 @@ export default memo(function LinkedAccountsForm({
           new Promise(resolve => setTimeout(resolve, 1000)),
           {
             loading: 'Unlinking account...',
-          }
-        );
+          },
+        )
       },
       onSuccess: () => {
         setTimeout(() => {
-          toast.success(flash.success);
-        }, 1000);
+          toast.success(flash.success)
+        }, 1000)
       },
       onError: () => {
-        toast.error(flash.message);
+        toast.error(flash.message)
       },
       onFinish: () => {
-        setLoadingProvider(null);
+        setLoadingProvider(null)
       },
-    });
-  };
+    })
+  }
 
   return (
     <ActionSection>
@@ -102,5 +104,5 @@ export default memo(function LinkedAccountsForm({
         </div>
       </div>
     </ActionSection>
-  );
-});
+  )
+})

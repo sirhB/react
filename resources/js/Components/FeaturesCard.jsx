@@ -1,35 +1,30 @@
-'use client';
+'use client'
 
-import { memo } from 'react';
-import { cn } from '@/Components/lib/utils';
-import { Icon } from '@iconify/react';
-import { Card } from '@/Components/shadcn/ui/card';
+import { cn } from '@/Components/lib/utils'
+import { memo } from 'react'
 
-export default memo(function FeaturesCard({
+export default memo(({
   icon,
   title,
   description,
-  href,
   className,
-}) {
+}) => {
   return (
-    <Card asChild>
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={cn(
-          "flex flex-col gap-4 p-6 hover:bg-accent/50 transition-colors",
-          className
-        )}
-      >
-        <Icon icon={icon} className="h-12 w-12 text-primary" />
-        <div className="space-y-2">
-          <h3 className="text-xl font-semibold">{title}</h3>
-          <p className="text-muted-foreground">{description}</p>
-        </div>
-      </a>
-    </Card>
-  );
-});
-
+    <div
+      className={cn(
+        'flex flex-col items-left text-left rounded-lg border bg-card p-6 shadow-2xs',
+        className,
+      )}
+    >
+      <div className="size-12 text-primary text-3xl">
+        {icon}
+      </div>
+      <h3 className="mt-4 text-xl font-semibold">
+        {title}
+      </h3>
+      <p className="mt-2 text-muted-foreground">
+        {description}
+      </p>
+    </div>
+  )
+})

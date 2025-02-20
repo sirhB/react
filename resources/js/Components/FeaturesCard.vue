@@ -17,7 +17,7 @@ defineProps({
 
 <template>
   <div class="flex flex-col items-left text-left rounded-lg border bg-card p-6 shadow-2xs">
-    <div class="h-12 w-12 text-primary text-3xl">
+    <div class="size-12 text-primary text-3xl">
       {{ icon }}
     </div>
     <h3 class="mt-4 text-xl font-semibold">

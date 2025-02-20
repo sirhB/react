@@ -1,38 +1,38 @@
-import { Button } from '@/Components/shadcn/ui/button';
-import { Icon } from '@iconify/react';
-import { Link, usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { Button } from '@/Components/shadcn/ui/button'
+import { Icon } from '@iconify/react'
+import { Link, usePage } from '@inertiajs/react'
+import { useEffect, useState } from 'react'
 
 const navLinks = [
   { label: 'Features', href: '/#features', external: false },
   { label: 'Pricing', href: '/#pricing', external: false },
   { label: 'Docs', href: 'https://docs.larasonic.com/introduction', external: true },
-];
+]
 
-const githubUrl = 'https://github.com/pushpak1300/Larasonic';
-const twitterUrl = 'https://x.com/pushpak1300?ref=larasonic';
+const githubUrl = 'https://github.com/pushpak1300/Larasonic'
+const twitterUrl = 'https://x.com/pushpak1300?ref=larasonic'
 
 export default function WebLayout({ children }) {
-  const { props } = usePage();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { props } = usePage()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [mode, setMode] = useState(() => {
     if (typeof window !== 'undefined') {
-      return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+      return document.documentElement.classList.contains('dark') ? 'dark' : 'light'
     }
-    return 'light';
-  });
+    return 'light'
+  })
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', mode === 'dark');
-  }, [mode]);
+    document.documentElement.classList.toggle('dark', mode === 'dark')
+  }, [mode])
 
   const toggleMode = () => {
-    setMode(mode === 'dark' ? 'light' : 'dark');
-  };
+    setMode(mode === 'dark' ? 'light' : 'dark')
+  }
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+    setIsMenuOpen(!isMenuOpen)
+  }
 
   return (
     <div className="min-h-screen">
@@ -44,7 +44,7 @@ export default function WebLayout({ children }) {
               <span className="hidden font-bold sm:inline-block">{props.name}</span>
             </a>
             <nav className="hidden md:flex items-center space-x-6 text-sm font-medium sm:ml-4">
-              {navLinks.map((link) => (
+              {navLinks.map(link => (
                 <a
                   key={link.href}
                   href={link.href}
@@ -61,20 +61,22 @@ export default function WebLayout({ children }) {
           </div>
           <div className="flex items-center space-x-4">
             <div className="hidden sm:flex space-x-2">
-              {!props.auth.user ? (
-                <>
-                  <Button variant="outline" asChild>
-                    <Link href="/login" prefetch="mount">Login</Link>
-                  </Button>
-                  <Button variant="outline" asChild>
-                    <Link href="/register" prefetch="mount">Register</Link>
-                  </Button>
-                </>
-              ) : (
-                <Button variant="outline" asChild>
-                  <Link href="/dashboard" prefetch="mount">Dashboard</Link>
-                </Button>
-              )}
+              {!props.auth.user
+                ? (
+                    <>
+                      <Button variant="outline" asChild>
+                        <Link href="/login" prefetch="mount">Login</Link>
+                      </Button>
+                      <Button variant="outline" asChild>
+                        <Link href="/register" prefetch="mount">Register</Link>
+                      </Button>
+                    </>
+                  )
+                : (
+                    <Button variant="outline" asChild>
+                      <Link href="/dashboard" prefetch="mount">Dashboard</Link>
+                    </Button>
+                  )}
             </div>
             <Button variant="ghost" size="icon" aria-label="Toggle Theme" onClick={toggleMode}>
               <Icon
@@ -106,7 +108,7 @@ export default function WebLayout({ children }) {
         {isMenuOpen && (
           <div className="md:hidden border-t">
             <nav className="flex flex-col p-4 space-y-4">
-              {navLinks.map((link) => (
+              {navLinks.map(link => (
                 <a
                   key={link.href}
                   href={link.href}
@@ -118,20 +120,22 @@ export default function WebLayout({ children }) {
                   {link.label}
                 </a>
               ))}
-              {!props.auth.user ? (
-                <>
-                  <Button variant="outline" asChild className="w-full" onClick={toggleMenu}>
-                    <Link href="/login" prefetch="mount">Login</Link>
-                  </Button>
-                  <Button variant="outline" asChild className="w-full" onClick={toggleMenu}>
-                    <Link href="/register" prefetch="mount">Register</Link>
-                  </Button>
-                </>
-              ) : (
-                <Button variant="outline" asChild className="w-full" onClick={toggleMenu}>
-                  <Link href="/dashboard" prefetch="mount">Dashboard</Link>
-                </Button>
-              )}
+              {!props.auth.user
+                ? (
+                    <>
+                      <Button variant="outline" asChild className="w-full" onClick={toggleMenu}>
+                        <Link href="/login" prefetch="mount">Login</Link>
+                      </Button>
+                      <Button variant="outline" asChild className="w-full" onClick={toggleMenu}>
+                        <Link href="/register" prefetch="mount">Register</Link>
+                      </Button>
+                    </>
+                  )
+                : (
+                    <Button variant="outline" asChild className="w-full" onClick={toggleMenu}>
+                      <Link href="/dashboard" prefetch="mount">Dashboard</Link>
+                    </Button>
+                  )}
               <a
                 href={githubUrl}
                 target="_blank"
@@ -160,14 +164,15 @@ export default function WebLayout({ children }) {
                 Pushpak.
               </a>
               <span>
-                Hosted On{' '}
+                Hosted On
+                {' '}
                 <a
                   className="underline"
                   href="https://sevalla.com/?ref=larasonic"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Sevalla 
+                  Sevalla
                 </a>
                 ❤️
               </span>
@@ -201,5 +206,5 @@ export default function WebLayout({ children }) {
         </div>
       </footer>
     </div>
-  );
+  )
 }

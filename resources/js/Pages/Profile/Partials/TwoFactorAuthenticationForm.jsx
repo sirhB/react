@@ -1,55 +1,59 @@
-import { memo, useState, useEffect } from 'react';
-import axios from 'axios';
-import InputError from '@/Components/InputError';
-import { Button } from '@/Components/shadcn/ui/button';
-import { Input } from '@/Components/shadcn/ui/input';
-import { Label } from '@/Components/shadcn/ui/label';
-import { useForm, usePage, router } from '@inertiajs/react';
-import ConfirmsPassword from '@/Components/ConfirmsPassword';
-import ActionSection from '@/Components/ActionSection';
+/* eslint-disable react-dom/no-dangerously-set-innerhtml */
+import ActionSection from '@/Components/ActionSection'
+import ConfirmsPassword from '@/Components/ConfirmsPassword'
+import InputError from '@/Components/InputError'
+import { Button } from '@/Components/shadcn/ui/button'
+import { Input } from '@/Components/shadcn/ui/input'
+import { Label } from '@/Components/shadcn/ui/label'
+import { router, useForm, usePage } from '@inertiajs/react'
+import axios from 'axios'
+import { memo, useEffect, useState } from 'react'
+import { route } from 'ziggy-js'
 
-export default memo(function TwoFactorAuthenticationForm({ className = '', requiresConfirmation = false }) {
-  const { props: { auth: { user } } } = usePage();
-  const [enabling, setEnabling] = useState(false);
-  const [confirming, setConfirming] = useState(false);
-  const [disabling, setDisabling] = useState(false);
-  const [qrCode, setQrCode] = useState(null);
-  const [setupKey, setSetupKey] = useState(null);
-  const [recoveryCodes, setRecoveryCodes] = useState([]);
+export default memo(({ requiresConfirmation }) => {
+  const { props: { auth: { user } } } = usePage()
+  const [enabling, setEnabling] = useState(false)
+  const [confirming, setConfirming] = useState(false)
+  const [disabling, setDisabling] = useState(false)
+  const [qrCode, setQrCode] = useState(null)
+  const [setupKey, setSetupKey] = useState(null)
+  const [recoveryCodes, setRecoveryCodes] = useState([])
 
   const confirmationForm = useForm({
     code: '',
-  });
+  })
 
-  const twoFactorEnabled = !enabling && user?.two_factor_enabled;
+  const { reset, clearErrors } = confirmationForm
+
+  const twoFactorEnabled = !enabling && user?.two_factor_enabled
 
   useEffect(() => {
     if (!twoFactorEnabled) {
-      confirmationForm.reset();
-      confirmationForm.clearErrors();
+      reset()
+      clearErrors()
     }
-  }, [twoFactorEnabled]);
+  }, [twoFactorEnabled, reset, clearErrors])
 
   const showQrCode = () => {
     return axios.get(route('two-factor.qr-code')).then((response) => {
-      setQrCode(response.data.svg);
-    });
-  };
+      setQrCode(response.data.svg)
+    })
+  }
 
   const showSetupKey = () => {
     return axios.get(route('two-factor.secret-key')).then((response) => {
-      setSetupKey(response.data.secretKey);
-    });
-  };
+      setSetupKey(response.data.secretKey)
+    })
+  }
 
   const showRecoveryCodes = () => {
     return axios.get(route('two-factor.recovery-codes')).then((response) => {
-      setRecoveryCodes(response.data);
-    });
-  };
+      setRecoveryCodes(response.data)
+    })
+  }
 
   const enableTwoFactorAuthentication = () => {
-    setEnabling(true);
+    setEnabling(true)
 
     router.post(route('two-factor.enable'), {}, {
       preserveScroll: true,
@@ -59,11 +63,11 @@ export default memo(function TwoFactorAuthenticationForm({ className = '', requi
         showRecoveryCodes(),
       ]),
       onFinish: () => {
-        setEnabling(false);
-        setConfirming(requiresConfirmation);
+        setEnabling(false)
+        setConfirming(requiresConfirmation)
       },
-    });
-  };
+    })
+  }
 
   const confirmTwoFactorAuthentication = () => {
     confirmationForm.post(route('two-factor.confirm'), {
@@ -71,28 +75,28 @@ export default memo(function TwoFactorAuthenticationForm({ className = '', requi
       preserveScroll: true,
       preserveState: true,
       onSuccess: () => {
-        setConfirming(false);
-        setQrCode(null);
-        setSetupKey(null);
+        setConfirming(false)
+        setQrCode(null)
+        setSetupKey(null)
       },
-    });
-  };
+    })
+  }
 
   const regenerateRecoveryCodes = () => {
-    axios.post(route('two-factor.recovery-codes')).then(() => showRecoveryCodes());
-  };
+    axios.post(route('two-factor.recovery-codes')).then(() => showRecoveryCodes())
+  }
 
   const disableTwoFactorAuthentication = () => {
-    setDisabling(true);
+    setDisabling(true)
 
     router.delete(route('two-factor.disable'), {
       preserveScroll: true,
       onSuccess: () => {
-        setDisabling(false);
-        setConfirming(false);
+        setDisabling(false)
+        setConfirming(false)
       },
-    });
-  };
+    })
+  }
 
   return (
     <ActionSection>
@@ -108,7 +112,11 @@ export default memo(function TwoFactorAuthenticationForm({ className = '', requi
       </div>
 
       <div className="mt-5 md:col-span-2 md:mt-0">
-        <div className="border px-4 py-5 shadow-xs rounded-lg sm:p-6">
+        <div
+          className="border px-4 py-5 shadow-xs rounded-lg sm:p-6"
+          role="region"
+          aria-label="Two Factor Authentication Settings"
+        >
           <h3 className="text-lg font-medium">
             {twoFactorEnabled && !confirming
               ? 'You have enabled two factor authentication.'
@@ -135,12 +143,16 @@ export default memo(function TwoFactorAuthenticationForm({ className = '', requi
                     </p>
                   </div>
 
-                  <div className="mt-4 inline-block p-2" dangerouslySetInnerHTML={{ __html: qrCode }} />
+                  <div className="mt-4 max-w-xl text-sm text-gray-600">
+                    {qrCode}
+                  </div>
 
                   {setupKey && (
                     <div className="mt-4 max-w-xl text-sm">
                       <p className="font-semibold">
-                        Setup Key: <span dangerouslySetInnerHTML={{ __html: setupKey }} />
+                        Setup Key:
+                        {' '}
+                        <span dangerouslySetInnerHTML={{ __html: setupKey }} />
                       </p>
                     </div>
                   )}
@@ -167,13 +179,7 @@ export default memo(function TwoFactorAuthenticationForm({ className = '', requi
 
               {recoveryCodes.length > 0 && !confirming && (
                 <div>
-                  <div className="mt-4 max-w-xl text-sm text-gray-600 dark:text-gray-400">
-                    <p className="font-semibold">
-                      Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost.
-                    </p>
-                  </div>
-
-                  <div className="mt-4 grid max-w-xl gap-1 rounded-lg bg-gray-100 p-4 font-mono text-sm dark:bg-gray-900 dark:text-gray-100">
+                  <div className="mt-4 max-w-xl text-sm text-gray-600">
                     {recoveryCodes.map(code => (
                       <div key={code}>{code}</div>
                     ))}
@@ -184,68 +190,72 @@ export default memo(function TwoFactorAuthenticationForm({ className = '', requi
           )}
 
           <div className="mt-5">
-            {!twoFactorEnabled ? (
-              <ConfirmsPassword onConfirmed={enableTwoFactorAuthentication}>
-                <Button type="button" disabled={enabling} className={enabling ? 'opacity-25' : ''}>
-                  Enable
-                </Button>
-              </ConfirmsPassword>
-            ) : (
-              <div className="space-x-3">
-                {confirming && (
-                  <ConfirmsPassword onConfirmed={confirmTwoFactorAuthentication}>
-                    <Button
-                      type="button"
-                      disabled={enabling}
-                      className={enabling ? 'opacity-25' : ''}
-                    >
-                      Confirm
+            {!twoFactorEnabled
+              ? (
+                  <ConfirmsPassword onConfirmed={enableTwoFactorAuthentication}>
+                    <Button type="button" disabled={enabling} className={enabling ? 'opacity-25' : ''}>
+                      Enable
                     </Button>
                   </ConfirmsPassword>
-                )}
+                )
+              : (
+                  <div className="space-x-3">
+                    {confirming && (
+                      <ConfirmsPassword onConfirmed={confirmTwoFactorAuthentication}>
+                        <Button
+                          type="button"
+                          disabled={enabling}
+                          className={enabling ? 'opacity-25' : ''}
+                        >
+                          Confirm
+                        </Button>
+                      </ConfirmsPassword>
+                    )}
 
-                {recoveryCodes.length > 0 && !confirming && (
-                  <ConfirmsPassword onConfirmed={regenerateRecoveryCodes}>
-                    <Button variant="secondary">
-                      Regenerate Recovery Codes
-                    </Button>
-                  </ConfirmsPassword>
-                )}
+                    {recoveryCodes.length > 0 && !confirming && (
+                      <ConfirmsPassword onConfirmed={regenerateRecoveryCodes}>
+                        <Button variant="secondary">
+                          Regenerate Recovery Codes
+                        </Button>
+                      </ConfirmsPassword>
+                    )}
 
-                {recoveryCodes.length === 0 && !confirming && (
-                  <ConfirmsPassword onConfirmed={showRecoveryCodes}>
-                    <Button variant="secondary">
-                      Show Recovery Codes
-                    </Button>
-                  </ConfirmsPassword>
-                )}
+                    {recoveryCodes.length === 0 && !confirming && (
+                      <ConfirmsPassword onConfirmed={showRecoveryCodes}>
+                        <Button variant="secondary">
+                          Show Recovery Codes
+                        </Button>
+                      </ConfirmsPassword>
+                    )}
 
-                {confirming ? (
-                  <ConfirmsPassword onConfirmed={disableTwoFactorAuthentication}>
-                    <Button
-                      variant="secondary"
-                      disabled={disabling}
-                      className={disabling ? 'opacity-25' : ''}
-                    >
-                      Cancel
-                    </Button>
-                  </ConfirmsPassword>
-                ) : (
-                  <ConfirmsPassword onConfirmed={disableTwoFactorAuthentication}>
-                    <Button
-                      variant="destructive"
-                      disabled={disabling}
-                      className={disabling ? 'opacity-25' : ''}
-                    >
-                      Disable
-                    </Button>
-                  </ConfirmsPassword>
+                    {confirming
+                      ? (
+                          <ConfirmsPassword onConfirmed={disableTwoFactorAuthentication}>
+                            <Button
+                              variant="secondary"
+                              disabled={disabling}
+                              className={disabling ? 'opacity-25' : ''}
+                            >
+                              Cancel
+                            </Button>
+                          </ConfirmsPassword>
+                        )
+                      : (
+                          <ConfirmsPassword onConfirmed={disableTwoFactorAuthentication}>
+                            <Button
+                              variant="destructive"
+                              disabled={disabling}
+                              className={disabling ? 'opacity-25' : ''}
+                            >
+                              Disable
+                            </Button>
+                          </ConfirmsPassword>
+                        )}
+                  </div>
                 )}
-              </div>
-            )}
           </div>
         </div>
       </div>
     </ActionSection>
-  );
-});
+  )
+})

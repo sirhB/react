@@ -1,5 +1,4 @@
-import UnheadVite from '@unhead/addons/vite'
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react'
 import laravel from 'laravel-vite-plugin'
 import { defineConfig } from 'vite'
 

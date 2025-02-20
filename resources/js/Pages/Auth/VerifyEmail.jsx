@@ -1,23 +1,24 @@
-import AuthenticationCardLogo from '@/Components/LogoRedirect';
-import { Button } from '@/Components/shadcn/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/shadcn/ui/card';
-import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
-import { Link, useForm } from '@inertiajs/react';
-import { memo } from 'react';
+import AuthenticationCardLogo from '@/Components/LogoRedirect'
+import { Button } from '@/Components/shadcn/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/shadcn/ui/card'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags'
+import { Link, useForm } from '@inertiajs/react'
+import { memo } from 'react'
+import { route } from 'ziggy-js'
 
-export default memo(function VerifyEmail({ status }) {
+export default memo(({ status }) => {
   useSeoMetaTags({
     title: 'Email Verification',
-  });
+  })
 
-  const form = useForm({});
+  const form = useForm({})
 
   const submit = (e) => {
-    e.preventDefault();
-    form.post(route('verification.send'));
-  };
+    e.preventDefault()
+    form.post(route('verification.send'))
+  }
 
-  const verificationLinkSent = status === 'verification-link-sent';
+  const verificationLinkSent = status === 'verification-link-sent'
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
@@ -61,6 +62,7 @@ export default memo(function VerifyEmail({ status }) {
                 </Link>
 
                 <Link
+                  type="button"
                   href={route('logout')}
                   method="post"
                   as="button"
@@ -74,5 +76,5 @@ export default memo(function VerifyEmail({ status }) {
         </CardContent>
       </Card>
     </div>
-  );
-});
+  )
+})

@@ -1,35 +1,36 @@
-import { memo, useEffect, useState } from 'react';
-import InputError from '@/Components/InputError';
-import { Alert, AlertDescription, AlertTitle } from '@/Components/shadcn/ui/alert';
-import { Button } from '@/Components/shadcn/ui/button';
-import { Label } from '@/Components/shadcn/ui/label';
-import { Skeleton } from '@/Components/shadcn/ui/skeleton';
-import { Textarea } from '@/Components/shadcn/ui/textarea';
-import AppLayout from '@/Layouts/AppLayout';
-import { Icon } from '@iconify/react';
-import { router, usePage } from '@inertiajs/react';
-import { toast } from 'sonner';
-import ModelSelector from './Components/ModelSelector';
-import TemperatureSelector from './Components/TemperatureSelector';
+import InputError from '@/Components/InputError'
+import { Alert, AlertDescription, AlertTitle } from '@/Components/shadcn/ui/alert'
+import { Button } from '@/Components/shadcn/ui/button'
+import { Label } from '@/Components/shadcn/ui/label'
+import { Skeleton } from '@/Components/shadcn/ui/skeleton'
+import { Textarea } from '@/Components/shadcn/ui/textarea'
+import AppLayout from '@/Layouts/AppLayout'
+import { Icon } from '@iconify/react'
+import { router, usePage } from '@inertiajs/react'
+import { memo, useEffect, useState } from 'react'
+import { toast } from 'sonner'
+import { route } from 'ziggy-js'
+import ModelSelector from './Components/ModelSelector'
+import TemperatureSelector from './Components/TemperatureSelector'
 
-export default memo(function Index({ systemPrompt, models, subscriptionEnabled }) {
-  const [userInput, setUserInput] = useState('');
-  const [modelOutput, setModelOutput] = useState(null);
-  const [error, setError] = useState(null);
-  const [selectedModel, setSelectedModel] = useState(models[0]);
-  const page = usePage();
+export default memo(({ systemPrompt, models, subscriptionEnabled }) => {
+  const [userInput, setUserInput] = useState('')
+  const [modelOutput, setModelOutput] = useState(null)
+  const [error, setError] = useState(null)
+  const [selectedModel, setSelectedModel] = useState(models[0])
+  const page = usePage()
 
   const onModelSelect = (model) => {
-    setSelectedModel(model);
-  };
+    setSelectedModel(model)
+  }
 
   const submit = async () => {
     if (!userInput.trim()) {
-      setError('Please enter a message');
-      return;
+      setError('Please enter a message')
+      return
     }
 
-    setError(null);
+    setError(null)
 
     try {
       const response = await fetch('/prism/openai/v1/chat/completions', {
@@ -43,40 +44,38 @@ export default memo(function Index({ systemPrompt, models, subscriptionEnabled }
             { role: 'user', content: userInput },
           ],
         }),
-      });
+      })
 
-      const data = await response.json();
-      setModelOutput(data.choices[0].message.content);
-    } catch (err) {
-      setError('An error occurred while submitting your message.');
+      const data = await response.json()
+      setModelOutput(data.choices[0].message.content)
     }
-  };
+    catch {
+      setError('An error occurred while submitting your message.')
+    }
+  }
 
   useEffect(() => {
     if (!subscriptionEnabled) {
       const promise = new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(route('subscriptions.create'));
-        }, 5000);
-      });
+        const timeoutId = setTimeout(() => {
+          resolve(route('subscriptions.create'))
+        }, 5000)
+        return () => clearTimeout(timeoutId)
+      })
 
       toast.promise(promise, {
         loading: 'Pro Subscription Required to use this feature.',
         success: (data) => {
-          router.visit(data);
+          router.visit(data)
         },
-      });
+      })
     }
-  }, [subscriptionEnabled]);
+  }, [subscriptionEnabled])
 
-  const title = `${page.props.name} - AI Playground`;
+  const title = `${page.props.name} - AI Playground`
 
   return (
     <AppLayout title={title}>
-      <div className="text-xl font-semibold leading-tight">
-        {page.props.name} AI Playground
-      </div>
-
       <div className="h-full flex-col flex">
         <Alert className="mb-4">
           <Icon icon="lucide:info" className="size-4" />
@@ -115,23 +114,25 @@ export default memo(function Index({ systemPrompt, models, subscriptionEnabled }
                             <Textarea
                               id="instructions"
                               value={userInput}
-                              onChange={(e) => setUserInput(e.target.value)}
+                              onChange={e => setUserInput(e.target.value)}
                               className="lg:min-h-[320px]"
                             />
                           </div>
                         </div>
                         <div className="flex flex-col space-y-2">
                           <Label htmlFor="output">Model Output</Label>
-                          {!modelOutput ? (
-                            <Skeleton className="h-20 sm:h-full min-h-[400px] lg:min-h-[700px] rounded-md" />
-                          ) : (
-                            <Textarea
-                              id="output"
-                              disabled
-                              className="min-h-[400px] rounded-md bg-muted border lg:min-h-[700px]"
-                              defaultValue={modelOutput}
-                            />
-                          )}
+                          {!modelOutput
+                            ? (
+                                <Skeleton className="h-20 sm:h-full min-h-[400px] lg:min-h-[700px] rounded-md" />
+                              )
+                            : (
+                                <Textarea
+                                  id="output"
+                                  disabled
+                                  className="min-h-[400px] rounded-md bg-muted border lg:min-h-[700px]"
+                                  defaultValue={modelOutput}
+                                />
+                              )}
                         </div>
                       </div>
                       {!modelOutput && (
@@ -151,5 +152,5 @@ export default memo(function Index({ systemPrompt, models, subscriptionEnabled }
         )}
       </div>
     </AppLayout>
-  );
-});
+  )
+})

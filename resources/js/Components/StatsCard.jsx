@@ -1,13 +1,13 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/Components/shadcn/ui/card';
-import { Icon } from '@iconify/react';
-import { memo } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/Components/shadcn/ui/card'
+import { Icon } from '@iconify/react'
+import { memo } from 'react'
 
-export default memo(function StatsCard({ value, description = '', link = '', icon = 'info' }) {
+export default memo(({ value, description = '', link = '', icon = 'info' }) => {
   return (
     <a
       href={link}
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener"
     >
       <Card className="hover:shadow-xs">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -28,5 +28,5 @@ export default memo(function StatsCard({ value, description = '', link = '', ico
         </CardContent>
       </Card>
     </a>
-  );
-});
+  )
+})

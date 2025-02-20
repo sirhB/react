@@ -1,33 +1,34 @@
-import InputError from '@/Components/InputError';
-import AuthenticationCardLogo from '@/Components/LogoRedirect';
-import { Button } from '@/Components/shadcn/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/shadcn/ui/card';
-import { Input } from '@/Components/shadcn/ui/input';
-import { Label } from '@/Components/shadcn/ui/label';
-import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
-import { useForm } from '@inertiajs/react';
-import { memo, useRef } from 'react';
+import InputError from '@/Components/InputError'
+import AuthenticationCardLogo from '@/Components/LogoRedirect'
+import { Button } from '@/Components/shadcn/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/shadcn/ui/card'
+import { Input } from '@/Components/shadcn/ui/input'
+import { Label } from '@/Components/shadcn/ui/label'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags'
+import { useForm } from '@inertiajs/react'
+import { memo, useRef } from 'react'
+import { route } from 'ziggy-js'
 
-export default memo(function ConfirmPassword() {
+export default memo(() => {
   useSeoMetaTags({
     title: 'Confirm Password',
-  });
+  })
 
   const form = useForm({
     password: '',
-  });
+  })
 
-  const passwordInput = useRef(null);
+  const passwordInput = useRef(null)
 
   const submit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     form.post(route('password.confirm'), {
       onFinish: () => {
-        form.reset();
-        passwordInput.current?.focus();
+        form.reset()
+        passwordInput.current?.focus()
       },
-    });
-  };
+    })
+  }
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
@@ -75,5 +76,5 @@ export default memo(function ConfirmPassword() {
         </CardContent>
       </Card>
     </div>
-  );
-});
+  )
+})

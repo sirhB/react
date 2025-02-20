@@ -1,15 +1,15 @@
-import AppSidebarContent from '@/Components/AppSidebarContent';
-import AppTeamManager from '@/Components/AppTeamManager';
-import AppUserManager from '@/Components/AppUserManager';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from '@/Components/shadcn/ui/breadcrumb';
-import { Separator } from '@/Components/shadcn/ui/separator';
-import { Sidebar, SidebarFooter, SidebarHeader, SidebarInset, SidebarRail, SidebarProvider, SidebarTrigger } from '@/Components/shadcn/ui/sidebar';
-import { Toaster } from '@/Components/shadcn/ui/sonner';
-import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
-import { usePage } from '@inertiajs/react';
+import AppSidebarContent from '@/Components/AppSidebarContent'
+import AppTeamManager from '@/Components/AppTeamManager'
+import AppUserManager from '@/Components/AppUserManager'
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from '@/Components/shadcn/ui/breadcrumb'
+import { Separator } from '@/Components/shadcn/ui/separator'
+import { Sidebar, SidebarFooter, SidebarHeader, SidebarInset, SidebarProvider, SidebarRail, SidebarTrigger } from '@/Components/shadcn/ui/sidebar'
+import { Toaster } from '@/Components/shadcn/ui/sonner'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags'
+import { usePage } from '@inertiajs/react'
 
 function AppSidebar() {
-  const { props } = usePage();
+  const { props } = usePage()
 
   return (
     <Sidebar collapsible="icon" className="border-r">
@@ -22,11 +22,11 @@ function AppSidebar() {
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  );
+  )
 }
 
 export default function AppLayout({ title, children }) {
-  useSeoMetaTags({ title });
+  useSeoMetaTags({ title })
 
   return (
     <div className="min-h-screen bg-background">
@@ -55,5 +55,5 @@ export default function AppLayout({ title, children }) {
         </SidebarInset>
       </SidebarProvider>
     </div>
-  );
+  )
 }

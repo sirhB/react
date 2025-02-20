@@ -5,11 +5,11 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/Components/shadcn/ui/sidebar';
-import { Icon } from '@iconify/react';
-import { Link } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
-import { cn } from '@/Components/lib/utils';
+} from '@/Components/shadcn/ui/sidebar'
+import { Icon } from '@iconify/react'
+import { Link } from '@inertiajs/react'
+import { useEffect, useState } from 'react'
+import { route } from 'ziggy-js'
 
 const navigationConfig = [
   {
@@ -45,39 +45,36 @@ const navigationConfig = [
       },
     ],
   },
-];
+]
 
 export default function AppSidebarContent() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false)
 
   useEffect(() => {
-    // Initialize dark mode state from document class
-    setIsDarkMode(document.documentElement.classList.contains('dark'));
+    setIsDarkMode(document.documentElement.classList.contains('dark'))
 
-    // Set up a mutation observer to watch for class changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'class') {
-          setIsDarkMode(document.documentElement.classList.contains('dark'));
+          setIsDarkMode(document.documentElement.classList.contains('dark'))
         }
-      });
-    });
+      })
+    })
 
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['class'],
-    });
+    })
 
-    return () => observer.disconnect();
-  }, []);
+    return () => observer.disconnect()
+  }, [])
 
   const toggleDarkMode = () => {
-    const newMode = !isDarkMode;
-    setIsDarkMode(newMode);
-    document.documentElement.classList.toggle('dark', newMode);
-    // Set attribute for vueuse compatibility
-    document.documentElement.setAttribute('class', newMode ? 'dark' : '');
-  };
+    const newMode = !isDarkMode
+    setIsDarkMode(newMode)
+    document.documentElement.classList.toggle('dark', newMode)
+    document.documentElement.setAttribute('class', newMode ? 'dark' : '')
+  }
 
   const renderLink = (item) => {
     if (item.external) {
@@ -88,43 +85,45 @@ export default function AppSidebarContent() {
           target: '_blank',
           rel: 'noopener noreferrer',
         },
-      };
+      }
     }
     return {
       Component: Link,
       props: {
         href: route(item.route),
       },
-    };
-  };
+    }
+  }
 
   return (
     <SidebarContent>
       {navigationConfig.map((group, index) => (
-        <SidebarGroup key={index} className={group.class}>
+        <SidebarGroup key={group.label} className={group.class}>
           {group.label && <SidebarGroupLabel>{group.label}</SidebarGroupLabel>}
           <SidebarMenu>
             {group.items.map((item) => {
-              const { Component, props } = renderLink(item);
+              const { Component, props } = renderLink(item)
               return (
                 <SidebarMenuItem
                   key={item.name}
                   active={!item.external && route().current(item.route)}
                 >
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton asChild isActive={!item.external && route().current(item.route)}>
                     <Component {...props}>
-                      <Icon icon={item.icon} className="mr-2 h-4 w-4" />
+                      <Icon icon={item.icon} className="h-4 w-4" />
                       {item.name}
                     </Component>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-              );
+              )
             })}
             {index === navigationConfig.length - 1 && (
               <SidebarMenuItem>
                 <SidebarMenuButton onClick={toggleDarkMode}>
                   <Icon icon={isDarkMode ? 'lucide:moon' : 'lucide:sun'} className="mr-2" />
-                  {isDarkMode ? 'Dark' : 'Light'} Mode
+                  {isDarkMode ? 'Dark' : 'Light'}
+                  {' '}
+                  Mode
                 </SidebarMenuButton>
               </SidebarMenuItem>
             )}
@@ -132,5 +131,5 @@ export default function AppSidebarContent() {
         </SidebarGroup>
       ))}
     </SidebarContent>
-  );
+  )
 }

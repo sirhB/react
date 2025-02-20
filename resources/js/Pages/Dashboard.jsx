@@ -1,5 +1,5 @@
-import FeaturesCard from '@/Components/FeaturesCard';
-import AppLayout from '@/Layouts/AppLayout';
+import StatsCard from '@/Components/StatsCard'
+import AppLayout from '@/Layouts/AppLayout'
 
 const features = [
   {
@@ -10,7 +10,7 @@ const features = [
   },
   {
     title: 'Roadmap',
-    description: "See what's coming next",
+    description: 'See what\'s coming next',
     icon: 'lucide:map',
     href: 'https://github.com/pushpak1300/larasonic/discussions/categories/roadmap',
   },
@@ -26,16 +26,22 @@ const features = [
     icon: 'lucide:users',
     href: 'https://github.com/pushpak1300/larasonic/discussions',
   },
-];
+]
 
 export default function Dashboard() {
   return (
     <AppLayout title="Dashboard">
-      <div className="grid gap-4 md:grid-cols-2">
-        {features.map((feature) => (
-          <FeaturesCard key={feature.title} {...feature} />
+      <div className="grid auto-rows-min gap-4 md:grid-cols-2">
+        {features.map(feature => (
+          <StatsCard
+            key={feature.title}
+            value={feature.title}
+            description={feature.description}
+            icon={feature.icon}
+            link={feature.href}
+          />
         ))}
       </div>
     </AppLayout>
-  );
+  )
 }

@@ -1,10 +1,10 @@
-import AuthenticationCardLogo from '@/Components/LogoRedirect';
-import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
+import AuthenticationCardLogo from '@/Components/LogoRedirect'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags'
 
 export default function TermsOfService({ terms }) {
   useSeoMetaTags({
     title: 'Terms of Service',
-  });
+  })
 
   return (
     <div className="font-sans antialiased">
@@ -16,10 +16,11 @@ export default function TermsOfService({ terms }) {
 
           <div
             className="prose dark:prose-invert mt-6 w-full overflow-hidden p-6 shadow-md sm:max-w-2xl sm:rounded-lg"
+            // eslint-disable-next-line react-dom/no-dangerously-set-innerhtml
             dangerouslySetInnerHTML={{ __html: terms }}
           />
         </div>
       </div>
     </div>
-  );
+  )
 }

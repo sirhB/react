@@ -1,28 +1,28 @@
-import { memo } from 'react';
-import { Separator } from '@/Components/shadcn/ui/separator';
-import AppLayout from '@/Layouts/AppLayout';
-import DeleteUserForm from './Partials/DeleteUserForm';
-import LinkedAccountsForm from './Partials/LinkedAccountsForm';
-import LogoutOtherBrowserSessionsForm from './Partials/LogoutOtherBrowserSessionsForm';
-import TwoFactorAuthenticationForm from './Partials/TwoFactorAuthenticationForm';
-import UpdatePasswordForm from './Partials/UpdatePasswordForm';
-import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
-import { usePage } from '@inertiajs/react';
+import { Separator } from '@/Components/shadcn/ui/separator'
+import AppLayout from '@/Layouts/AppLayout'
+import { usePage } from '@inertiajs/react'
+import { memo } from 'react'
+import DeleteUserForm from './Partials/DeleteUserForm'
+import LinkedAccountsForm from './Partials/LinkedAccountsForm'
+import LogoutOtherBrowserSessionsForm from './Partials/LogoutOtherBrowserSessionsForm'
+import TwoFactorAuthenticationForm from './Partials/TwoFactorAuthenticationForm'
+import UpdatePasswordForm from './Partials/UpdatePasswordForm'
+import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm'
 
-export default memo(function Show({
-  sessions = [],
+const defaultSessions = []
+const defaultProviders = []
+const defaultOauthProviders = []
+
+export default memo(({
+  sessions = defaultSessions,
   confirmsTwoFactorAuthentication = false,
-  availableOauthProviders = {},
-  activeOauthProviders = []
-}) {
-  const { props: { jetstream, auth: { user } } } = usePage();
+  availableProviders = defaultProviders,
+  activeOauthProviders = defaultOauthProviders,
+}) => {
+  const { props: { jetstream, auth: { user } } } = usePage()
 
   return (
     <AppLayout title="Settings">
-      <div className="text-xl font-semibold leading-tight">
-        Profile Settings
-      </div>
-
       <div>
         <div className="max-w-7xl">
           {jetstream.canUpdateProfileInformation && (
@@ -31,13 +31,13 @@ export default memo(function Show({
             </div>
           )}
 
-          {Object.keys(availableOauthProviders).length > 0 && (
+          {Object.keys(availableProviders).length > 0 && (
             <>
               <Separator className="my-8 hidden sm:block" />
               <div>
                 <LinkedAccountsForm
                   className="mt-10 sm:mt-0"
-                  availableProviders={availableOauthProviders}
+                  availableProviders={availableProviders}
                   activeProviders={activeOauthProviders}
                 />
               </div>
@@ -88,5 +88,5 @@ export default memo(function Show({
         </div>
       </div>
     </AppLayout>
-  );
-});
+  )
+})

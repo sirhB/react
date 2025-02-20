@@ -1,16 +1,12 @@
-import { Separator } from "@/Components/shadcn/ui/separator"
-import AppLayout from "@/Layouts/AppLayout"
-import DeleteTeamForm from "@/Pages/Teams/Partials/DeleteTeamForm"
-import TeamMemberManager from "@/Pages/Teams/Partials/TeamMemberManager"
-import UpdateTeamNameForm from "@/Pages/Teams/Partials/UpdateTeamNameForm"
+import { Separator } from '@/Components/shadcn/ui/separator'
+import AppLayout from '@/Layouts/AppLayout'
+import DeleteTeamForm from '@/Pages/Teams/Partials/DeleteTeamForm'
+import TeamMemberManager from '@/Pages/Teams/Partials/TeamMemberManager'
+import UpdateTeamNameForm from '@/Pages/Teams/Partials/UpdateTeamNameForm'
 
 export default function Show({ team, availableRoles, permissions }) {
   return (
     <AppLayout title="Team Settings">
-      <div className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-        Team Settings
-      </div>
-
       <div>
         <div className="max-w-7xl">
           <UpdateTeamNameForm team={team} permissions={permissions} />

@@ -1,20 +1,21 @@
-import InputError from '@/Components/InputError';
-import AuthenticationCardLogo from '@/Components/LogoRedirect';
-import { Button } from '@/Components/shadcn/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/shadcn/ui/card';
-import { Checkbox } from '@/Components/shadcn/ui/checkbox';
-import { Input } from '@/Components/shadcn/ui/input';
-import { Label } from '@/Components/shadcn/ui/label';
-import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
-import { Link, useForm, usePage } from '@inertiajs/react';
-import { memo } from 'react';
+import InputError from '@/Components/InputError'
+import AuthenticationCardLogo from '@/Components/LogoRedirect'
+import { Button } from '@/Components/shadcn/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/shadcn/ui/card'
+import { Checkbox } from '@/Components/shadcn/ui/checkbox'
+import { Input } from '@/Components/shadcn/ui/input'
+import { Label } from '@/Components/shadcn/ui/label'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags'
+import { Link, useForm, usePage } from '@inertiajs/react'
+import { memo } from 'react'
+import { route } from 'ziggy-js'
 
-export default memo(function Register() {
-  const { props: { jetstream } } = usePage();
+export default memo(() => {
+  const { props: { jetstream } } = usePage()
 
   useSeoMetaTags({
     title: 'Register',
-  });
+  })
 
   const form = useForm({
     name: '',
@@ -22,14 +23,14 @@ export default memo(function Register() {
     password: '',
     password_confirmation: '',
     terms: false,
-  });
+  })
 
   const submit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     form.post(route('register'), {
       onFinish: () => form.reset('password', 'password_confirmation'),
-    });
-  };
+    })
+  }
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
@@ -110,11 +111,14 @@ export default memo(function Register() {
                       required
                     />
                     <label htmlFor="terms" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                      I agree to the{' '}
+                      I agree to the
+                      {' '}
                       <a target="_blank" href={route('terms.show')} className="rounded-md text-sm underline">
                         Terms of Service
                       </a>
-                      {' '}and{' '}
+                      {' '}
+                      and
+                      {' '}
                       <a target="_blank" href={route('policy.show')} className="rounded-md text-sm underline">
                         Privacy Policy
                       </a>
@@ -141,5 +145,5 @@ export default memo(function Register() {
         </CardContent>
       </Card>
     </div>
-  );
-});
+  )
+})

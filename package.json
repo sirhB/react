@@ -46,6 +46,7 @@
     "@tailwindcss/typography": "^0.5.16",
     "@tanstack/vue-table": "^8.20.5",
     "@unhead/addons": "^1.11.18",
+    "@unhead/react": "^2.0.0-alpha.15",
     "@unhead/vue": "^1.11.18",
     "@unovis/ts": "^1.5.0",
     "@unovis/vue": "^1.5.0",

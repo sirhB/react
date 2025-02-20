@@ -1,3 +1,4 @@
+import { Button } from '@/Components/shadcn/ui/button'
 import {
   Dialog,
   DialogClose,
@@ -7,63 +8,47 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/Components/shadcn/ui/dialog';
-import { Input } from '@/Components/shadcn/ui/input';
-import { Button } from '@/Components/shadcn/ui/button';
-import axios from 'axios';
-import { memo, useRef, useState } from 'react';
-import InputError from './InputError';
+} from '@/Components/shadcn/ui/dialog'
+import { Input } from '@/Components/shadcn/ui/input'
+import axios from 'axios'
+import { memo, useRef, useState } from 'react'
+import { route } from 'ziggy-js'
+import InputError from './InputError'
 
-export default memo(function ConfirmsPassword({
+export default memo(({
   title = 'Confirm Password',
   content = 'For your security, please confirm your password to continue.',
   button = 'Confirm',
   children,
   onConfirmed,
-}) {
-  const [confirmingPassword, setConfirmingPassword] = useState(false);
-  const [form, setForm] = useState({
-    password: '',
-    error: '',
-    processing: false,
-  });
+}) => {
+  const [confirmingPassword, setConfirmingPassword] = useState(false)
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [processing, setProcessing] = useState(false)
 
-  const passwordInput = useRef(null);
-
-  const confirmPassword = () => {
-    setForm(prev => ({ ...prev, processing: true }));
-
-    axios.post(route('password.confirm'), {
-      password: form.password,
-    }).then(() => {
-      setForm(prev => ({ ...prev, processing: false }));
-      onConfirmed?.(form.password);
-      closeModal();
-    }).catch((error) => {
-      setForm(prev => ({
-        ...prev,
-        processing: false,
-        error: error.response.data.errors.password[0],
-      }));
-      passwordInput.current?.focus();
-    });
-  };
+  const passwordInput = useRef(null)
 
   const closeModal = () => {
-    setConfirmingPassword(false);
-    setForm({
-      password: '',
-      error: '',
-      processing: false,
-    });
-  };
+    setConfirmingPassword(false)
+    setPassword('')
+    setError('')
+  }
 
-  const handleKeyUp = (e) => {
-    if (e.key === 'Enter') {
-      confirmPassword();
-    }
-  };
-
+  const confirmPassword = () => {
+    setProcessing(true)
+    axios.post(route('password.confirm'), {
+      password,
+    }).then(() => {
+      setProcessing(false)
+      onConfirmed?.(password)
+      closeModal()
+    }).catch((error) => {
+      setProcessing(false)
+      setError(error.response?.data?.errors?.password?.[0])
+      passwordInput.current?.focus()
+    })
+  }
   return (
     <span>
       <Dialog open={confirmingPassword} onOpenChange={setConfirmingPassword}>
@@ -81,16 +66,16 @@ export default memo(function ConfirmsPassword({
           <div className="mt-4">
             <Input
               ref={passwordInput}
-              value={form.password}
-              onChange={e => setForm(prev => ({ ...prev, password: e.target.value }))}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
               type="password"
               className="mt-1 block"
               placeholder="Password"
               autoComplete="current-password"
-              onKeyUp={handleKeyUp}
+              onKeyUp={e => e.key === 'Enter' && confirmPassword()}
             />
 
-            <InputError message={form.error} className="mt-2" />
+            <InputError message={error} className="mt-2" />
           </div>
 
           <DialogFooter className="mt-4">
@@ -102,8 +87,8 @@ export default memo(function ConfirmsPassword({
 
             <Button
               variant="destructive"
-              className={`ms-3 ${form.processing ? 'opacity-25' : ''}`}
-              disabled={form.processing}
+              className={`ms-3 ${processing ? 'opacity-25' : ''}`}
+              disabled={processing}
               onClick={confirmPassword}
             >
               {button}
@@ -112,5 +97,5 @@ export default memo(function ConfirmsPassword({
         </DialogContent>
       </Dialog>
     </span>
-  );
-});
+  )
+})

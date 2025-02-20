@@ -1,12 +1,13 @@
-import { Button } from '@/Components/shadcn/ui/button';
-import { Icon } from '@iconify/react';
-import { memo } from 'react';
+import { Button } from '@/Components/shadcn/ui/button'
+import { Icon } from '@iconify/react'
+import { memo } from 'react'
+import { route } from 'ziggy-js'
 
 function toSentenceCase(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
 }
 
-export default memo(function SocialLoginButton({ provider, disabled = false }) {
+export default memo(({ provider, disabled = false }) => {
   return (
     <Button
       disabled={disabled}
@@ -15,8 +16,10 @@ export default memo(function SocialLoginButton({ provider, disabled = false }) {
     >
       <a href={route('oauth.redirect', { provider: provider.slug })}>
         <Icon icon={provider.icon} className="mr-2 h-4 w-4" />
-        Sign In With {toSentenceCase(provider.slug)}
+        Sign In With
+        {' '}
+        {toSentenceCase(provider.slug)}
       </a>
     </Button>
-  );
-});
+  )
+})

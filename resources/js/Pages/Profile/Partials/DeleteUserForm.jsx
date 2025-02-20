@@ -1,22 +1,25 @@
-import { memo } from 'react';
-import { Button } from '@/Components/shadcn/ui/button';
-import { useForm } from '@inertiajs/react';
-import ConfirmsPassword from '@/Components/ConfirmsPassword';
-import ActionSection from '@/Components/ActionSection';
+import ActionSection from '@/Components/ActionSection'
+import ConfirmsPassword from '@/Components/ConfirmsPassword'
+import { Button } from '@/Components/shadcn/ui/button'
+import { useForm } from '@inertiajs/react'
+import { memo } from 'react'
+import { route } from 'ziggy-js'
 
-export default memo(function DeleteUserForm({ className = '' }) {
-  const form = useForm({});
+export default memo(() => {
+  const { delete: destroy, transform, reset } = useForm({})
 
   const deleteUser = (password) => {
-    form.transform(data => ({
+    transform(data => ({
       ...data,
       password,
-    })).delete(route('current-user.destroy'), {
+    }))
+
+    destroy(route('current-user.destroy'), {
       preserveScroll: true,
-      onSuccess: () => form.reset(),
-      onFinish: () => form.reset(),
-    });
-  };
+      onSuccess: () => reset(),
+      onFinish: () => reset(),
+    })
+  }
 
   return (
     <ActionSection>
@@ -52,5 +55,5 @@ export default memo(function DeleteUserForm({ className = '' }) {
         </div>
       </div>
     </ActionSection>
-  );
-});
+  )
+})

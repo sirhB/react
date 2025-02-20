@@ -1,90 +1,92 @@
-import InputError from '@/Components/InputError';
-import AuthenticationCardLogo from '@/Components/LogoRedirect';
-import { Button } from '@/Components/shadcn/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/shadcn/ui/card';
-import { Checkbox } from '@/Components/shadcn/ui/checkbox';
-import { Input } from '@/Components/shadcn/ui/input';
-import { Label } from '@/Components/shadcn/ui/label';
-import { toast, Toaster } from "sonner"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/Components/shadcn/ui/tabs';
-import SocialLoginButton from '@/Components/SocialLoginButton';
-import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
-import { Link, useForm, usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
-import {route} from 'ziggy-js';
+import InputError from '@/Components/InputError'
+import AuthenticationCardLogo from '@/Components/LogoRedirect'
+import { Button } from '@/Components/shadcn/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/shadcn/ui/card'
+import { Checkbox } from '@/Components/shadcn/ui/checkbox'
+import { Input } from '@/Components/shadcn/ui/input'
+import { Label } from '@/Components/shadcn/ui/label'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/Components/shadcn/ui/tabs'
+import SocialLoginButton from '@/Components/SocialLoginButton'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags'
+import { Link, useForm, usePage } from '@inertiajs/react'
+import { useEffect, useState } from 'react'
+import { toast, Toaster } from 'sonner'
+import { route } from 'ziggy-js'
 
 export default function Login({ canResetPassword, status, availableOauthProviders }) {
-  const { props } = usePage();
+  const { props } = usePage()
   const [activeTab, setActiveTab] = useState(() => {
     try {
-      return localStorage.getItem('login-active-tab') || 'password';
-    } catch {
-      return 'password';
+      return localStorage.getItem('login-active-tab') || 'password'
     }
-  });
+    catch {
+      return 'password'
+    }
+  })
 
   // Form state
   const passwordForm = useForm({
     email: 'test@example.com',
     password: 'password',
     remember: false,
-  });
+  })
 
   const loginLinkForm = useForm({
     email: '',
-  });
+  })
 
   // Computed
-  const hasOauthProviders = Object.keys(availableOauthProviders || {}).length > 0;
-  const isProcessing = passwordForm.processing || loginLinkForm.processing;
+  const hasOauthProviders = Object.keys(availableOauthProviders || {}).length > 0
+  const isProcessing = passwordForm.processing || loginLinkForm.processing
 
   // Methods
   const handlePasswordLogin = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     passwordForm
       .post(route('login'), {
         onFinish: () => passwordForm.reset('password'),
-      });
-  };
+      })
+  }
 
   const handleLoginLink = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     loginLinkForm.post(route('login-link.store'), {
       onSuccess: () => {
-        loginLinkForm.reset();
+        loginLinkForm.reset()
         if (props.flash.success) {
-          toast.success(props.flash.success);
+          toast.success(props.flash.success)
         }
       },
       onError: () => {
         if (props.flash.error) {
-          toast.error(props.flash.error);
+          toast.error(props.flash.error)
         }
       },
-    });
-  };
+    })
+  }
 
   // Effects
   useEffect(() => {
     if (props.flash.error) {
-      toast.error(props.flash.error);
+      toast.error(props.flash.error)
     }
 
     if (props.flash.success) {
-      toast.success(props.flash.success);
+      toast.success(props.flash.success)
     }
-  }, [props.flash]);
+  }, [props.flash])
 
   useEffect(() => {
     try {
-      localStorage.setItem('login-active-tab', activeTab);
-    } catch {}
-  }, [activeTab]);
+      localStorage.setItem('login-active-tab', activeTab)
+    }
+    catch {}
+  }, [activeTab])
 
   // SEO
   useSeoMetaTags({
     title: 'Log in',
-  });
+  })
 
   return (
     <>
@@ -123,7 +125,7 @@ export default function Login({ canResetPassword, status, availableOauthProvider
                           id="email"
                           type="email"
                           value={passwordForm.data.email}
-                          onChange={(e) => passwordForm.setData('email', e.target.value)}
+                          onChange={e => passwordForm.setData('email', e.target.value)}
                           placeholder="name@example.com"
                           required
                           autoFocus
@@ -149,7 +151,7 @@ export default function Login({ canResetPassword, status, availableOauthProvider
                           id="password"
                           type="password"
                           value={passwordForm.data.password}
-                          onChange={(e) => passwordForm.setData('password', e.target.value)}
+                          onChange={e => passwordForm.setData('password', e.target.value)}
                           required
                           autoComplete="current-password"
                         />
@@ -161,7 +163,7 @@ export default function Login({ canResetPassword, status, availableOauthProvider
                         <Checkbox
                           id="remember"
                           checked={passwordForm.data.remember}
-                          onCheckedChange={(checked) => passwordForm.setData('remember', checked)}
+                          onCheckedChange={checked => passwordForm.setData('remember', checked)}
                           name="remember"
                         />
                         <label htmlFor="remember" className="text-sm text-muted-foreground">
@@ -193,7 +195,7 @@ export default function Login({ canResetPassword, status, availableOauthProvider
                           id="login-link-email"
                           type="email"
                           value={loginLinkForm.data.email}
-                          onChange={(e) => loginLinkForm.setData('email', e.target.value)}
+                          onChange={e => loginLinkForm.setData('email', e.target.value)}
                           required
                           placeholder="name@example.com"
                         />
@@ -235,7 +237,8 @@ export default function Login({ canResetPassword, status, availableOauthProvider
 
             {/* Sign Up Link */}
             <div className="mt-6 text-center text-sm text-muted-foreground">
-              Don't have an account?{' '}
+              Don't have an account?
+              {' '}
               <Link href={route('register')} className="font-medium text-primary hover:underline">
                 Sign up
               </Link>
@@ -244,5 +247,5 @@ export default function Login({ canResetPassword, status, availableOauthProvider
         </Card>
       </div>
     </>
-  );
+  )
 }

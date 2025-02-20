@@ -2,12 +2,14 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/Components/shadcn/ui/hover-card"
-import { Label } from "@/Components/shadcn/ui/label"
-import { Slider } from "@/Components/shadcn/ui/slider"
-import { useState } from "react"
+} from '@/Components/shadcn/ui/hover-card'
+import { Label } from '@/Components/shadcn/ui/label'
+import { Slider } from '@/Components/shadcn/ui/slider'
+import { useState } from 'react'
 
-export default function TemperatureSelector({ defaultValue = [0.5] }) {
+const DEFAULT_TEMP = [0.5]
+
+export default function TemperatureSelector({ defaultValue = DEFAULT_TEMP }) {
   const [value, setValue] = useState(defaultValue)
 
   return (

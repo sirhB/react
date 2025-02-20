@@ -1,26 +1,27 @@
-import InputError from '@/Components/InputError';
-import AuthenticationCardLogo from '@/Components/LogoRedirect';
-import { Button } from '@/Components/shadcn/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/shadcn/ui/card';
-import { Input } from '@/Components/shadcn/ui/input';
-import { Label } from '@/Components/shadcn/ui/label';
-import { useSeoMetaTags } from '@/Composables/useSeoMetaTags';
-import { useForm } from '@inertiajs/react';
-import { memo } from 'react';
+import InputError from '@/Components/InputError'
+import AuthenticationCardLogo from '@/Components/LogoRedirect'
+import { Button } from '@/Components/shadcn/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/shadcn/ui/card'
+import { Input } from '@/Components/shadcn/ui/input'
+import { Label } from '@/Components/shadcn/ui/label'
+import { useSeoMetaTags } from '@/Composables/useSeoMetaTags'
+import { useForm } from '@inertiajs/react'
+import { memo } from 'react'
+import { route } from 'ziggy-js'
 
-export default memo(function ForgotPassword({ status }) {
+export default memo(({ status }) => {
   useSeoMetaTags({
     title: 'Forgot Password',
-  });
+  })
 
   const form = useForm({
     email: '',
-  });
+  })
 
   const submit = (e) => {
-    e.preventDefault();
-    form.post(route('password.email'));
-  };
+    e.preventDefault()
+    form.post(route('password.email'))
+  }
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
@@ -74,5 +75,5 @@ export default memo(function ForgotPassword({ status }) {
         </CardContent>
       </Card>
     </div>
-  );
-});
+  )
+})

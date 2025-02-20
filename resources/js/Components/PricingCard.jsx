@@ -1,10 +1,10 @@
-'use client';
+'use client'
 
-import { memo } from 'react';
-import { CheckIcon } from 'lucide-react';
-import { Button } from '@/Components/shadcn/ui/button';
-import { Card, CardFooter } from '@/Components/shadcn/ui/card';
-import { cn } from '@/Components/lib/utils';
+import { cn } from '@/Components/lib/utils'
+import { Button } from '@/Components/shadcn/ui/button'
+import { Card, CardFooter } from '@/Components/shadcn/ui/card'
+import { CheckIcon } from 'lucide-react'
+import { memo } from 'react'
 
 const defaultFeatures = [
   'Production-ready Docker setup',
@@ -13,9 +13,9 @@ const defaultFeatures = [
   'Comprehensive documentation',
   'Regular updates & improvements',
   'Best In Class IDE support',
-];
+]
 
-export default memo(function PricingCard({
+export default memo(({
   features = defaultFeatures,
   price = 19,
   plan = 'PRO',
@@ -30,9 +30,9 @@ export default memo(function PricingCard({
   pricingSlot,
   actionSlot,
   footerSlot,
-}) {
+}) => {
   return (
-    <Card className={cn("w-full", className)}>
+    <Card className={cn('w-full', className)}>
       <div className="grid w-full items-start gap-10 rounded-lg border p-8 md:grid-cols-[1fr_200px]">
         <div className="grid gap-4 sm:gap-6">
           {headerSlot || (
@@ -47,7 +47,7 @@ export default memo(function PricingCard({
           )}
           {featuresSlot || (
             <ul className="grid gap-2 sm:gap-3 text-xs sm:text-sm text-muted-foreground sm:grid-cols-2">
-              {features.map((feature) => (
+              {features.map(feature => (
                 <li key={feature} className="flex items-center">
                   <CheckIcon className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                   {feature}
@@ -60,7 +60,8 @@ export default memo(function PricingCard({
           {pricingSlot || (
             <div>
               <h4 className="text-4xl sm:text-4xl md:text-6xl lg:text-7xl font-bold">
-                ${price}
+                $
+                {price}
               </h4>
               <p className="text-xs sm:text-sm font-medium text-muted-foreground">
                 {billingPeriod}
@@ -81,6 +82,5 @@ export default memo(function PricingCard({
 
       {footerSlot && <CardFooter className="p-4">{footerSlot}</CardFooter>}
     </Card>
-  );
-});
-
+  )
+})

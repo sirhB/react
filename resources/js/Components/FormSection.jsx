@@ -1,19 +1,19 @@
-import { memo } from 'react';
+import { memo } from 'react'
 
-export default memo(function FormSection({
+export default memo(({
   onSubmit,
   title,
   description,
   aside,
   form,
   actions,
-}) {
-  const hasActions = !!actions;
+}) => {
+  const hasActions = !!actions
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit?.();
-  };
+    e.preventDefault()
+    onSubmit?.()
+  }
 
   return (
     <div className="md:grid md:grid-cols-3 md:gap-6">
@@ -49,5 +49,5 @@ export default memo(function FormSection({
         </form>
       </div>
     </div>
-  );
-});
+  )
+})
