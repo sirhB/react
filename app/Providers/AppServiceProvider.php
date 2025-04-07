@@ -7,7 +7,6 @@ namespace App\Providers;
 use App\Models\User;
 use EchoLabs\Prism\Prism;
 use Carbon\CarbonImmutable;
-use Knuckles\Scribe\Scribe;
 use Illuminate\Http\Request;
 use Laravel\Sanctum\Sanctum;
 use Illuminate\Support\Facades\DB;
@@ -57,7 +56,6 @@ final class AppServiceProvider extends ServiceProvider
         $this->configureUrl();
         $this->configureVite();
         $this->configurePrisms();
-        $this->configureScribeDocumentation();
         $this->configureRateLimiting();
     }
 
@@ -71,23 +69,7 @@ final class AppServiceProvider extends ServiceProvider
         Date::use(CarbonImmutable::class);
     }
 
-    /**
-     * Configure the application's Scribe documentation.
-     *
-     * @see https://scribe.knuckles.wtf/laravel/
-     */
-    private function configureScribeDocumentation(): void
-    {
-        if (class_exists(Scribe::class)) {
-            Scribe::beforeResponseCall(function (HttpFoundationRequest $request, ExtractedEndpointData $endpointData): void {
-                $user = User::query()->first();
-                if ($user) {
-                    Sanctum::actingAs($user, ['*']);
-                }
-            });
-        }
-    }
-
+   
     /**
      * Configure the application's commands.
      */
