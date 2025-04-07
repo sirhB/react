@@ -85,7 +85,6 @@
       "php artisan migrate:fresh --seed --force --ansi",
       "bun install",
       "bun run build",
-      "@php artisan scribe:generate"
     ],
     "analyse": [
       "./vendor/bin/phpstan analyse -c phpstan.neon --ansi"
