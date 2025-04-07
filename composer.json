@@ -84,7 +84,7 @@
       "touch database/database.sqlite",
       "php artisan migrate:fresh --seed --force --ansi",
       "bun install",
-      "bun run build",
+      "bun run build"
     ],
     "analyse": [
       "./vendor/bin/phpstan analyse -c phpstan.neon --ansi"
