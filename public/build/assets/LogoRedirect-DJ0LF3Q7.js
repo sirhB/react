@@ -1,0 +1,1 @@
+import{r,j as o,$ as e}from"./app-nUqQ7yHU.js";import{I as s}from"./iconify-UPomDOL-.js";const t=r.memo(()=>o.jsx(s,{icon:"lucide:rocket",className:"size-6","aria-hidden":"true"})),i=r.memo(()=>o.jsx(e,{href:"/",children:o.jsx(t,{className:"block w-auto"})}));export{i as A};

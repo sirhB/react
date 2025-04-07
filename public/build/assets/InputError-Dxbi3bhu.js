@@ -1,0 +1,1 @@
+import{r as o,j as s}from"./app-nUqQ7yHU.js";import{c as e}from"./utils-DdhcCPaC.js";import{L as m}from"./label-DnNgpJC0.js";const i=o.memo(({message:r,className:t})=>r?s.jsx(m,{className:e("text-destructive",t),children:r}):null);export{i as I};
